@@ -27,13 +27,13 @@ fun HomeText(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(24.dp)) {
         Text(
             text = stringResource(R.string.Artisan),
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Thin,
             fontSize = 28.sp,
             color = Color.Black
         )
         Text(
             text = stringResource(R.string.artisanSubtitle),
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Light,
             fontSize = 20.sp,
             color = MaterialTheme.colorScheme.tertiary
         )
