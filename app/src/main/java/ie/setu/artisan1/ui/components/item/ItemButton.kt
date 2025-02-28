@@ -2,6 +2,7 @@ package ie.setu.artisan1.ui.components.item
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -23,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -48,15 +50,17 @@ fun ItemButton(
                 onTotalItemsChange(totalItems)
                 items.add(item)
             },
-            elevation = ButtonDefaults.buttonElevation(20.dp)
+            elevation = ButtonDefaults.buttonElevation(20.dp),
+            modifier = Modifier.weight(1f)
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Add Item")
-            Spacer(modifier.width(width = 4.dp))
+            Icon(Icons.Default.Add, contentDescription = "Add Item",tint = MaterialTheme.colorScheme.onPrimary) //Theme-aware of icon colour
+
+            Spacer(modifier.width(width = 6.dp))
             Text(
                 text = stringResource(R.string.itemButton),
                 fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
-                color = Color.White
+                style = MaterialTheme.typography.titleMedium, // Dynamic typography
+                color = MaterialTheme.colorScheme.onPrimary // Theme-aware text color
             )
         }
 
@@ -67,23 +71,26 @@ fun ItemButton(
                 withStyle(
                     style = SpanStyle(
                         fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
-                        color = Color.Black
+                        fontSize = MaterialTheme.typography.bodyLarge.fontSize, // Dynamic text size,
+                        color = MaterialTheme.colorScheme.onSurface // Theme-aware color
                     )
                 ) {
-                    append(stringResource(R.string.item_no) + " ")
+                    append(stringResource(R.string.item_no) + "🛍️ ")
                 }
 
 
                 withStyle(
                     style = SpanStyle(
                         fontWeight = FontWeight.Bold,
-                        fontSize = 20.sp,
+                        fontSize = MaterialTheme.typography.bodyLarge.fontSize,
                         color = MaterialTheme.colorScheme.secondary)
                 ) {
                     append(totalItems.toString())
                 }
-            })
+                },
+            textAlign = TextAlign.End, // Align text to the end
+            modifier = Modifier.padding(start = 16.dp) // Add padding for alignment
+        )
     }
 }
 
