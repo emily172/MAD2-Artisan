@@ -3,13 +3,14 @@
     <!-- Light mode -->
     <color name="primary">#E91E63</color> <!-- Rose Pink -->
     <color name="secondary">#64B5F6</color> <!-- Sky Blue -->
-    <color name="background">#F5F5F5</color> <!-- Soft Ivory -->
+    <color name="background">#B0BEC5</color> <!-- Soft Grey -->
+
 
     <!-- Dark mode-->
 
     <color name="primaryd">#C2185B</color> <!-- Darker Rose Pink -->
     <color name="secondaryd">#42A5F5</color> <!-- Deeper Sky Blue -->
-    <color name="backgroundd">#121212</color> <!-- Soft Black (Dark mode background) -->
+    <color name="backgroundd">#F5F5F5</color> <!-- Soft Ivory -->
 </resources>
 
 
