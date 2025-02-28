@@ -13,8 +13,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import ie.setu.artisan1.R
 import ie.setu.artisan1.ui.theme.Artisan1Theme
+import ie.setu.artisan1.R
 
 
 @Composable
