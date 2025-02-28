@@ -3,8 +3,19 @@
     <string name="Artisan">Artisan Shop</string>
     <string name="artisanSubtitle">The world of creation</string>
     <string name="itemButton">Add</string>
-    <string name="soaps">Soaps</string>
-    <string name="candles">Candles</string>
+
+    <!-- Button Categories -->
+    <string name="soaps">Soap</string>
+    <string name="candles">Candle</string>
+    <string name="jams">Jam</string>
+    <string name="pottery">Pottery</string>
+    <string name="painting">Painting</string>
+    <string name="jewellery">Jewellery</string>
+    <string name="weaving">Weaving</string>
+    <string name="textile">Textile</string>
+
+
+
     <string name="amount">Amount</string>
     <string name="item_no">Item number : </string>
     <string name="inventory">inventory</string>
