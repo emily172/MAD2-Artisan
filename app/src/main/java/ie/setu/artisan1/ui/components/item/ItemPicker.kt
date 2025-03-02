@@ -19,7 +19,7 @@ import ie.setu.artisan1.ui.theme.Artisan1Theme
 fun AmountPicker(
     onCategoryChange: (Int) -> Unit
 ) {
-    val possibleValues = listOf("1", "2", "3", "4", "5", "6","7","8","9","10")
+    val possibleValues = listOf("10", "20", "30", "40", "50", "60","70","80","90","100")
     var pickerValue by remember { mutableStateOf(possibleValues[0]) }
 
     ListItemPicker(
