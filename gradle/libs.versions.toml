@@ -14,6 +14,7 @@ numberPicker = "1.0.3"
 compose-plugin = "1.6.20-dev1646"
 timber = "5.0.1"
 
+
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
 androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
