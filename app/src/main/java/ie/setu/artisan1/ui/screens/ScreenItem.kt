@@ -1,10 +1,13 @@
 package ie.setu.artisan1.ui.screens
 
+import androidx.compose.foundation.gestures.rememberScrollableState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -29,21 +32,20 @@ import ie.setu.artisan1.ui.theme.Artisan1Theme
 
 @Composable
 fun ScreenItem(modifier: Modifier = Modifier,
-                 items: SnapshotStateList<ArtisanModel>) {
+               items: SnapshotStateList<ArtisanModel>) {
 
     var itemType by remember { mutableStateOf("Soap") }
     var itemAmount by remember { mutableIntStateOf(10) }
     var itemDescription by remember { mutableStateOf("Add an item description!") }
     var totalItems by remember { mutableIntStateOf(0) }
 
+    //Adding in the scrolling
     Column {
         Column(
-            modifier = modifier.padding(
-                top = 48.dp,
-                start = 24.dp,
-                end = 24.dp
-            ),
-            verticalArrangement = Arrangement.spacedBy(30.dp),
+            modifier = modifier
+                .verticalScroll(rememberScrollState())
+                .padding(horizontal = 16.dp, vertical = 16.dp),
+                 verticalArrangement = Arrangement.spacedBy(30.dp),
         ) {
             HomeText()
             Row(
