@@ -31,6 +31,7 @@ import ie.setu.artisan1.R
 import ie.setu.artisan1.data.ArtisanModel
 import ie.setu.artisan1.data.fakeItems
 import ie.setu.artisan1.ui.theme.Artisan1Theme
+import timber.log.Timber
 
 @Composable
 fun ItemButton(
@@ -47,6 +48,11 @@ fun ItemButton(
                 totalItems+=item.itemAmount
                 onTotalItemsChange(totalItems)
                 items.add(item)
+                //Added logging to the items added
+                Timber.i("Item info : $item")
+                Timber.i("Item Inventory List info : ${items.toList()}")
+
+
             },
             elevation = ButtonDefaults.buttonElevation(20.dp),
             modifier = Modifier.weight(1f)
