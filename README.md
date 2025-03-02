@@ -26,7 +26,7 @@ Two screens have been implemented for ‘Item’ Option, where the user adds a n
 - **Search and Filter**: Search through the inventory and filter items by type.
 - **Updating Inventory List**: Controlled using the SnapshotStateList to store all the items added by the user which triggers a recomposition of the UI to reflect the changes.
 - **Handling User Interactions**: Add button triggered item inventory bar increases each new item added to list.
-- **Toast Notification*: Receive a toast notification when the total items exceed 100 to say limit exceeded.
+- **Toast Notification**: Receive a toast notification when the total items exceed 100 to say limit exceeded.
 
 
 ## Installation
