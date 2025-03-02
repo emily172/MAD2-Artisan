@@ -1,5 +1,6 @@
 package ie.setu.artisan1.ui.components.item
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
@@ -19,6 +20,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
@@ -40,17 +42,23 @@ fun ItemButton(
     items: SnapshotStateList<ArtisanModel>,
     onTotalItemsChange: (Int) -> Unit
 ) {
-    var totalItems by remember { mutableIntStateOf(0) }
+    var totalItems = items.sumOf{it.itemAmount }
+    val context = LocalContext.current
+    val description = stringResource(R.string.limitExceeded,item.itemAmount)
 
     Row {
         Button(
             onClick = {
-                totalItems+=item.itemAmount
-                onTotalItemsChange(totalItems)
-                items.add(item)
-                //Added logging to the items added
-                Timber.i("Item info : $item")
-                Timber.i("Item Inventory List info : ${items.toList()}")
+                if(totalItems+ item.itemAmount <=100){
+                    onTotalItemsChange(totalItems)
+                    items.add(item)
+                    //Added logging to the items added
+                    Timber.i("Item info : $item")
+                    Timber.i("Item Inventory List info : ${items.toList()}")
+                }
+                else
+                    Toast.makeText(context,description,
+                        Toast.LENGTH_SHORT).show()
 
 
             },
