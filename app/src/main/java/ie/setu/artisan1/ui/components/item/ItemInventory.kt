@@ -24,7 +24,7 @@ fun ItemInventory(modifier: Modifier = Modifier,
                 totalItems: Int) {
     var currentProgress by remember { mutableFloatStateOf(0f) }
 
-    currentProgress = totalItems / 500f
+    currentProgress = totalItems / 100f
 
     LinearProgressIndicator(
         progress = { currentProgress },
@@ -43,6 +43,6 @@ fun ItemInventory(modifier: Modifier = Modifier,
 @Composable
 fun ItemInventoryPreview(){
     Artisan1Theme {
-        ItemInventory(Modifier, totalItems = 500)
+        ItemInventory(Modifier, totalItems = 100)
     }
 }
