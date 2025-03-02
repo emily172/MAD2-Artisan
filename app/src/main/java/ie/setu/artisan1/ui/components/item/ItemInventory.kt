@@ -28,11 +28,11 @@ fun ItemInventory(modifier: Modifier = Modifier,
 
     LinearProgressIndicator(
         progress = { currentProgress },
-        modifier = modifier.padding(top = 120.dp,bottom = 24.dp)
+        modifier = modifier.padding(top = 16.dp,bottom = 8.dp)
             .height(8.dp)
             .fillMaxWidth()
             .clip(RoundedCornerShape(16.dp)),
-        color = MaterialTheme.colorScheme.primary,
+        color = MaterialTheme.colorScheme.tertiary,
         trackColor = ProgressIndicatorDefaults.linearTrackColor,
         strokeCap = ProgressIndicatorDefaults.LinearStrokeCap
     )
@@ -41,7 +41,7 @@ fun ItemInventory(modifier: Modifier = Modifier,
 
 @Preview(showBackground = true)
 @Composable
-fun ProgressBarPreview(){
+fun ItemInventoryPreview(){
     Artisan1Theme {
         ItemInventory(Modifier, totalItems = 500)
     }
