@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import ie.setu.artisan1.navigation.AppDestination
 import ie.setu.artisan1.navigation.Item
 import ie.setu.artisan1.ui.theme.Artisan1Theme
+import ie.setu.donationx.ui.components.general.DropDownMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -60,12 +61,6 @@ fun TopAppBarProvider(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun DropDownMenu() {
-    // Implement your DropDownMenu here
-    Text("Menu")
-}
 
 @Preview(showBackground = true)
 @Composable
