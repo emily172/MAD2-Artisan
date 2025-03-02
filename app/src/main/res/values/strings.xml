@@ -31,5 +31,7 @@
 
 
     <string name="empty_list">No Items Added Yet - Add some Goods!</string>
+    <string name="limitExceeded">"Item of 100 will exceed Maximum Items of 100"</string>
+
 
 </resources>

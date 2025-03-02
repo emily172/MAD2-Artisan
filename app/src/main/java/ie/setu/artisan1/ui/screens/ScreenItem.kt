@@ -39,6 +39,7 @@ fun ScreenItem(modifier: Modifier = Modifier,
     var itemDescription by remember { mutableStateOf("Add an item description!") }
     var totalItems by remember { mutableIntStateOf(0) }
 
+    totalItems = items.sumOf { it.itemAmount }
     //Adding in the scrolling
     Column {
         Column(
