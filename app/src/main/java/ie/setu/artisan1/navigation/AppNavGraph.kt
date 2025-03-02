@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import ie.setu.artisan1.data.ArtisanModel
 import ie.setu.artisan1.ui.screens.ScreenItem
 import ie.setu.artisan1.ui.screens.ScreenReport
+import ie.setu.artisan1.ui.screens.ScreenAbout
 
 @Composable
 fun NavHostProvider(
@@ -32,5 +33,10 @@ fun NavHostProvider(
             // Call our 'Record' Screen Here
             ScreenReport(modifier = modifier, items = items)
         }
+        composable(route = About.route) {
+            //call our 'About' Screen Here
+            ScreenAbout(modifier = modifier)
+        }
+
     }
 }

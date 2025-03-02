@@ -3,6 +3,7 @@ package ie.setu.artisan1.navigation
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.List
 import androidx.compose.material.icons.filled.AddCircle
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.ui.graphics.vector.ImageVector
 
 interface AppDestination {
@@ -23,5 +24,12 @@ object Item : AppDestination {
     override val route = "item"
 }
 
-val bottomAppBarDestinations = listOf(Item, Record)
-val allDestinations = listOf(Record, Item)
+object About : AppDestination {
+    override val icon = Icons.Filled.Info
+    override val label = "About"
+    override val route = "about"
+}
+
+
+val bottomAppBarDestinations = listOf(Item, Record,About)
+val allDestinations = listOf(Record, Item, About)

@@ -75,10 +75,8 @@ fun ArtisanApp(
             )
         },
         bottomBar = {
-            BottomAppBarProvider(
-                navController = navController,
-                currentScreen = currentBottomScreen,
-            )
+            BottomAppBarProvider(navController,
+                currentScreen = currentBottomScreen,)
         }
     )
 }

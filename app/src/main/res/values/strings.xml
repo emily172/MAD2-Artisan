@@ -33,5 +33,9 @@
     <string name="empty_list">No Items Added Yet - Add some Goods!</string>
     <string name="limitExceeded">"Item of 100 will exceed Maximum Items of 100"</string>
 
+    <!--About Screen-->
+    <string name="about_title">Artisan Shop</string>
+    <string name="about_message">Manage your handmade products effortlessly.</string>
+
 
 </resources>
