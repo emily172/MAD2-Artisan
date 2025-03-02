@@ -20,6 +20,7 @@ import androidx.compose.ui.unit.sp
 import ie.setu.artisan1.R
 import ie.setu.artisan1.data.ArtisanModel
 import ie.setu.artisan1.data.fakeItems
+import ie.setu.artisan1.ui.components.general.Centre
 import ie.setu.artisan1.ui.components.record.ItemCardList
 import ie.setu.artisan1.ui.components.record.ItemCardList
 import ie.setu.artisan1.ui.components.record.RecordText
@@ -38,6 +39,17 @@ fun ScreenReport(modifier: Modifier = Modifier,
             ),
         ) {
             RecordText()
+            if(items.isEmpty())
+            Centre(Modifier.fillMaxSize()) {
+                Text(color = MaterialTheme.colorScheme.secondary,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 30.sp,
+                    lineHeight = 34.sp,
+                    textAlign = TextAlign.Center,
+                    text = stringResource(R.string.empty_list)
+                )
+            }
+            else
             ItemCardList(
                 items = items
             )

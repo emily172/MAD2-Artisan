@@ -28,4 +28,8 @@
     <string name="product_description">Product Description</string>
     <string name="show_less">Show Less</string>
     <string name="show_more">Show More</string>
+
+
+    <string name="empty_list">No Items Added Yet - Add some Goods!</string>
+
 </resources>
