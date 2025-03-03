@@ -1,6 +1,6 @@
 # Artisan Shop 
 
-![artisan_welcome.png](app%2Fsrc%2Fmain%2Fres%2Fdrawable%2Fartisan_welcome.png)
+![img_1.png](img_1.png)
 
 The Artisan Shop app adds navigation system that allows users to move to different screens. 
 This navigation system is designed to enhance the user experience by providing easy access to the item, goods and about of the app.
