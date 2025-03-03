@@ -21,3 +21,4 @@ This navigation system is designed to enhance the user experience by providing e
 
 ## Resources
 https://tutors.dev/topic/mobile-app-dev-2-2025/topic-04-navigation
+https://www.freepik.com/free-vector/hand-drawn-thrift-store-illustration_37452108.htm#fromView=search&page=1&position=24&uuid=9722dd10-7475-4c16-9a87-0ab8d7d21cc1&query=homemade+shop
