@@ -1,4 +1,4 @@
-package ie.setu.artisan1.ui.screens
+package ie.setu.artisan1.ui.screens.record
 
 import ie.setu.artisan1.ui.theme.Artisan1Theme
 
@@ -22,9 +22,7 @@ import ie.setu.artisan1.data.ArtisanModel
 import ie.setu.artisan1.data.fakeItems
 import ie.setu.artisan1.ui.components.general.Centre
 import ie.setu.artisan1.ui.components.record.ItemCardList
-import ie.setu.artisan1.ui.components.record.ItemCardList
 import ie.setu.artisan1.ui.components.record.RecordText
-import ie.setu.artisan1.ui.theme.Artisan1Theme
 
 @Composable
 fun ScreenReport(modifier: Modifier = Modifier,

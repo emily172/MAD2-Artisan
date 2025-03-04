@@ -1,4 +1,4 @@
-package ie.setu.artisan1.ui.screens
+package ie.setu.artisan1.ui.screens.about
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

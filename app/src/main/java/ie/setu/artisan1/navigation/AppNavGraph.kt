@@ -9,9 +9,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import ie.setu.artisan1.data.ArtisanModel
-import ie.setu.artisan1.ui.screens.ScreenItem
-import ie.setu.artisan1.ui.screens.ScreenReport
-import ie.setu.artisan1.ui.screens.ScreenAbout
+import ie.setu.artisan1.ui.screens.item.ScreenItem
+import ie.setu.artisan1.ui.screens.record.ScreenReport
+import ie.setu.artisan1.ui.screens.about.ScreenAbout
 
 @Composable
 fun NavHostProvider(

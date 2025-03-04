@@ -1,6 +1,5 @@
-package ie.setu.artisan1.ui.screens
+package ie.setu.artisan1.ui.screens.item
 
-import androidx.compose.foundation.gestures.rememberScrollableState
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
