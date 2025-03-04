@@ -24,7 +24,7 @@ import ie.setu.artisan1.R
 import ie.setu.artisan1.ui.theme.Artisan1Theme
 
 @Composable
-fun ScreenAbout(modifier: Modifier = Modifier) {
+fun AboutScreen(modifier: Modifier = Modifier) {
 
     Column(
         modifier = modifier.background(MaterialTheme.colorScheme.secondary),
@@ -55,6 +55,6 @@ fun ScreenAbout(modifier: Modifier = Modifier) {
 @Composable
 fun AboutScreenPreview() {
     Artisan1Theme{
-        ScreenAbout( modifier = Modifier)
+        AboutScreen( modifier = Modifier)
     }
 }

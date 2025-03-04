@@ -25,7 +25,7 @@ import ie.setu.artisan1.ui.components.record.ItemCardList
 import ie.setu.artisan1.ui.components.record.RecordText
 
 @Composable
-fun ScreenReport(modifier: Modifier = Modifier,
+fun ReportScreen(modifier: Modifier = Modifier,
                  items: SnapshotStateList<ArtisanModel>) {
 
     Column {
@@ -59,7 +59,7 @@ fun ScreenReport(modifier: Modifier = Modifier,
 @Composable
 fun ReportScreenPreview() {
     Artisan1Theme {
-        ScreenReport( modifier = Modifier,
+        ReportScreen( modifier = Modifier,
             items = fakeItems.toMutableStateList()
         )
     }

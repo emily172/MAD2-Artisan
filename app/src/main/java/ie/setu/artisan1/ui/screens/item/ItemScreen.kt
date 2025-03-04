@@ -30,7 +30,7 @@ import ie.setu.artisan1.ui.components.item.ItemDescription
 import ie.setu.artisan1.ui.theme.Artisan1Theme
 
 @Composable
-fun ScreenItem(modifier: Modifier = Modifier,
+fun ItemScreen(modifier: Modifier = Modifier,
                items: SnapshotStateList<ArtisanModel>) {
 
     var itemType by remember { mutableStateOf("Soap") }
@@ -86,7 +86,7 @@ fun ScreenItem(modifier: Modifier = Modifier,
 @Composable
 fun ItemScreenPreview() {
     Artisan1Theme {
-        ScreenItem( modifier = Modifier,
+        ItemScreen( modifier = Modifier,
             items = fakeItems.toMutableStateList())
     }
 }
