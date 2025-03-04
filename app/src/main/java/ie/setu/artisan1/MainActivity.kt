@@ -19,6 +19,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import dagger.hilt.android.AndroidEntryPoint
 import ie.setu.artisan1.data.ArtisanModel
 import ie.setu.artisan1.navigation.NavHostProvider
 import ie.setu.artisan1.navigation.Record
@@ -28,6 +29,7 @@ import ie.setu.artisan1.ui.components.general.MenuItem
 import ie.setu.artisan1.ui.components.general.TopAppBarProvider
 import ie.setu.artisan1.ui.theme.Artisan1Theme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
