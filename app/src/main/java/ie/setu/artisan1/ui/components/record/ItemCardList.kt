@@ -12,7 +12,11 @@ import ie.setu.artisan1.ui.theme.Artisan1Theme
 import java.text.DateFormat
 
 @Composable
-fun ItemCardList(products: List<ArtisanModel>, onDeleteProduct: (ArtisanModel) -> Unit) {
+fun ItemCardList(
+    products: List<ArtisanModel>,
+    onDeleteProduct: (ArtisanModel) -> Unit,
+    onClickProductDetails: (Int) -> Unit
+) {
     LazyColumn {
         items(
             items = products,
@@ -23,22 +27,21 @@ fun ItemCardList(products: List<ArtisanModel>, onDeleteProduct: (ArtisanModel) -
                 itemAmount = product.itemAmount,
                 description = product.description,
                 dateCreated = DateFormat.getDateTimeInstance().format(product.dateAdded),
-                onClickDelete = { onDeleteProduct(product) }
+                onClickDelete = { onDeleteProduct(product) },
+                onClickProductDetails = { onClickProductDetails(product.id) }
             )
         }
     }
 }
 
-@Preview(showBackground = true,
-    wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE
-)
+@Preview(showBackground = true, wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE)
 @Composable
 fun ItemCardListPreview() {
     Artisan1Theme {
         ItemCardList(
             fakeItems.toMutableStateList(),
             onDeleteProduct = {},
+            onClickProductDetails = {}
         )
     }
 }
-

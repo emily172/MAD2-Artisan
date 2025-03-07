@@ -45,7 +45,8 @@ fun ItemCard(
     itemAmount: Int,
     description: String,
     dateCreated: String,
-    onClickDelete: () -> Unit
+    onClickDelete: () -> Unit,
+    onClickProductDetails: () -> Unit
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -53,11 +54,14 @@ fun ItemCard(
         ),
         modifier = Modifier.padding(vertical = 4.dp, horizontal = 2.dp)
     ) {
-        ItemCardContent(itemType,
-            itemAmount,
-            description,
-            dateCreated,
-            onClickDelete)
+        ItemCardContent(
+            itemType = itemType,
+            itemAmount = itemAmount,
+            description = description,
+            dateCreated = dateCreated,
+            onClickDelete = onClickDelete,
+            onClickProductDetails = onClickProductDetails
+        )
     }
 }
 
@@ -67,7 +71,8 @@ private fun ItemCardContent(
     itemAmount: Int,
     description: String,
     dateCreated: String,
-    onClickDelete: () -> Unit
+    onClickDelete: () -> Unit,
+    onClickProductDetails: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showDeleteConfirmDialog by remember { mutableStateOf(false) }
@@ -116,7 +121,7 @@ private fun ItemCardContent(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    FilledTonalButton(onClick = {}) {
+                    FilledTonalButton(onClick = onClickProductDetails) {
                         Text(text = "Show More...")
                     }
                     IconButton(onClick = { showDeleteConfirmDialog = true }) {
@@ -178,7 +183,8 @@ fun ItemCardPreview() {
             itemAmount = 20,
             description = "A description of my issue...",
             dateCreated = DateFormat.getDateTimeInstance().format(Date()),
-            onClickDelete = {}
+            onClickDelete = {},
+            onClickProductDetails = {}
         )
     }
 }

@@ -12,6 +12,7 @@ import ie.setu.artisan1.data.ArtisanModel
 import ie.setu.artisan1.ui.screens.item.ItemScreen
 import ie.setu.artisan1.ui.screens.record.RecordScreen
 import ie.setu.artisan1.ui.screens.about.AboutScreen
+import ie.setu.artisan1.ui.screens.details.DetailsScreen
 
 @Composable
 fun NavHostProvider(
@@ -31,7 +32,12 @@ fun NavHostProvider(
         }
         composable(route = Record.route) {
             //call our 'Record' Screen Here
-            RecordScreen(modifier = modifier)
+            RecordScreen(
+                modifier = modifier,
+                onClickProductDetails = { productId: Int ->
+                    navController.navigateToProductDetails(productId)
+                },
+            )
         }
 
         composable(route = About.route) {
@@ -39,5 +45,21 @@ fun NavHostProvider(
             AboutScreen(modifier = modifier)
         }
 
+        composable(
+            route = Details.route,
+            arguments = Details.arguments
+        )
+        { navBackStackEntry ->
+            val id = navBackStackEntry.arguments?.getInt(Details.idArg)
+            if (id != null) {
+                DetailsScreen()
+            }
+        }
+
     }
+
+}
+
+private fun NavHostController.navigateToProductDetails(artisanId: Int) {
+    this.navigate("details/$artisanId")
 }

@@ -1,7 +1,6 @@
 package ie.setu.artisan1.ui.screens.record
 
 import ie.setu.artisan1.ui.theme.Artisan1Theme
-
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -29,6 +28,7 @@ import ie.setu.artisan1.ui.components.record.RecordText
 @Composable
 fun RecordScreen(
     modifier: Modifier = Modifier,
+    onClickProductDetails: (Int) -> Unit,
     recordViewModel: RecordViewModel = hiltViewModel()
 ) {
     val products = recordViewModel.uiProducts.collectAsState().value
@@ -56,6 +56,7 @@ fun RecordScreen(
             else
                 ItemCardList(
                     products = products,
+                    onClickProductDetails = onClickProductDetails,
                     onDeleteProduct = { product: ArtisanModel ->
                         recordViewModel.deleteProduct(product)
                     }
@@ -103,7 +104,8 @@ fun PreviewRecordScreen(
             else
                 ItemCardList(
                     products = products,
-                    onDeleteProduct = {}
+                    onDeleteProduct = {},
+                    onClickProductDetails = {}
                 )
         }
     }
