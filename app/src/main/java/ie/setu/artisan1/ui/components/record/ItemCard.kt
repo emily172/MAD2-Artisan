@@ -3,18 +3,20 @@ package ie.setu.artisan1.ui.components.record
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.BackHand
-import androidx.compose.material.icons.filled.Business
 import androidx.compose.material.icons.filled.Cottage
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.FilledTonalButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -40,7 +42,8 @@ fun ItemCard(
     itemType: String,
     itemAmount: Int,
     description: String,
-    dateCreated: String
+    dateCreated: String,
+    onClickDelete: () -> Unit
 ) {
     Card(
         colors = CardDefaults.cardColors(
@@ -51,7 +54,8 @@ fun ItemCard(
         ItemCardContent(itemType,
             itemAmount,
             description,
-            dateCreated)
+            dateCreated,
+            onClickDelete)
     }
 }
 
@@ -60,7 +64,8 @@ private fun ItemCardContent(
     itemType: String,
     itemAmount: Int,
     description: String,
-    dateCreated: String
+    dateCreated: String,
+    onClickDelete: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
 
@@ -82,8 +87,8 @@ private fun ItemCardContent(
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Icon(
                     imageVector = Icons.Filled.Cottage,
-                    "Item Status",
-                    Modifier.padding(end = 8.dp)
+                    contentDescription = "Item Status",
+                    modifier = Modifier.padding(end = 8.dp)
                 )
                 Text(
                     text = itemType,
@@ -104,6 +109,15 @@ private fun ItemCardContent(
             )
             if (expanded) {
                 Text(modifier = Modifier.padding(vertical = 16.dp), text = description)
+                Row(modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween) {
+                    FilledTonalButton(onClick = {}) {
+                        Text(text = "Show More...")
+                    }
+                    IconButton(onClick = onClickDelete) {
+                        Icon(Icons.Filled.Delete, contentDescription = "Delete Product")
+                    }
+                }
             }
         }
         IconButton(onClick = { expanded = !expanded }) {
@@ -127,7 +141,8 @@ fun ItemCardPreview() {
             itemType = "Jam",
             itemAmount = 20,
             description = "A description of my issue...",
-            dateCreated = DateFormat.getDateTimeInstance().format(Date())
+            dateCreated = DateFormat.getDateTimeInstance().format(Date()),
+            onClickDelete = {}
         )
     }
 }

@@ -21,9 +21,15 @@ constructor(private val repository: RoomRepository) : ViewModel() {
 
     init {
         viewModelScope.launch {
-            repository.getAll().collect { listOfDonations ->
-                _products.value = listOfDonations
+            repository.getAll().collect { listOfProducts ->
+                _products.value = listOfProducts
             }
         }
     }
+    fun deleteProduct(product: ArtisanModel) {
+        viewModelScope.launch {
+            repository.delete(product)
+        }
+    }
 }
+

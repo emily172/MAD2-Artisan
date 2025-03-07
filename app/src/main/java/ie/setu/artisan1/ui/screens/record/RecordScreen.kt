@@ -27,9 +27,10 @@ import ie.setu.artisan1.ui.components.record.ItemCardList
 import ie.setu.artisan1.ui.components.record.RecordText
 
 @Composable
-fun RecordScreen(modifier: Modifier = Modifier,
-                 recordViewModel: RecordViewModel = hiltViewModel()) {
-
+fun RecordScreen(
+    modifier: Modifier = Modifier,
+    recordViewModel: RecordViewModel = hiltViewModel()
+) {
     val products = recordViewModel.uiProducts.collectAsState().value
 
     Column {
@@ -41,9 +42,10 @@ fun RecordScreen(modifier: Modifier = Modifier,
             ),
         ) {
             RecordText()
-            if(products.isEmpty())
+            if (products.isEmpty())
                 Centre(Modifier.fillMaxSize()) {
-                    Text(color = MaterialTheme.colorScheme.secondary,
+                    Text(
+                        color = MaterialTheme.colorScheme.secondary,
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp,
                         lineHeight = 34.sp,
@@ -53,28 +55,31 @@ fun RecordScreen(modifier: Modifier = Modifier,
                 }
             else
                 ItemCardList(
-                    products = products
+                    products = products,
+                    onDeleteProduct = { product: ArtisanModel ->
+                        recordViewModel.deleteProduct(product)
+                    }
                 )
         }
     }
 }
 
-
 @Preview(showBackground = true)
 @Composable
 fun RecordScreenPreview() {
     Artisan1Theme {
-        PreviewRecordScreen( modifier = Modifier,
+        PreviewRecordScreen(
+            modifier = Modifier,
             products = fakeItems.toMutableStateList()
         )
     }
 }
 
-
 @Composable
-fun PreviewRecordScreen(modifier: Modifier = Modifier,
-                        products: SnapshotStateList<ArtisanModel>) {
-
+fun PreviewRecordScreen(
+    modifier: Modifier = Modifier,
+    products: SnapshotStateList<ArtisanModel>
+) {
     Column {
         Column(
             modifier = modifier.padding(
@@ -84,9 +89,10 @@ fun PreviewRecordScreen(modifier: Modifier = Modifier,
             ),
         ) {
             RecordText()
-            if(products.isEmpty())
+            if (products.isEmpty())
                 Centre(Modifier.fillMaxSize()) {
-                    Text(color = MaterialTheme.colorScheme.secondary,
+                    Text(
+                        color = MaterialTheme.colorScheme.secondary,
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp,
                         lineHeight = 34.sp,
@@ -96,7 +102,8 @@ fun PreviewRecordScreen(modifier: Modifier = Modifier,
                 }
             else
                 ItemCardList(
-                    products = products
+                    products = products,
+                    onDeleteProduct = {}
                 )
         }
     }
