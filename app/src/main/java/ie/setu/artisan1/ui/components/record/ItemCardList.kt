@@ -3,7 +3,6 @@ package ie.setu.artisan1.ui.components.record
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -15,24 +14,22 @@ import java.text.DateFormat
 
 
 @Composable
-internal fun ItemCardList(
-    items: SnapshotStateList<ArtisanModel>,
-    modifier: Modifier = Modifier
-) {
+fun ItemCardList(products: List<ArtisanModel>) {
     LazyColumn {
         items(
-            items = items,
-            key = { item -> item.id }
-        ) { item ->
+            items = products,
+            key = { product -> product.id } // Unique key for each item
+        ) { product ->
             ItemCard(
-                itemType = item.itemType,
-                itemAmount = item.itemAmount,
-                description = item.description,
-                dateCreated = DateFormat.getDateTimeInstance().format(item.dateAdded),
+                itemType = product.itemType,
+                itemAmount = product.itemAmount,
+                description = product.description,
+                dateCreated = DateFormat.getDateTimeInstance().format(product.dateAdded)
             )
         }
     }
 }
+
 
 @Preview(showBackground = true,
     wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE

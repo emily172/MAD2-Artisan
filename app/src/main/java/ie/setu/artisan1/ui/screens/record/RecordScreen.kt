@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
@@ -17,6 +18,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import ie.setu.artisan1.R
 import ie.setu.artisan1.data.ArtisanModel
 import ie.setu.artisan1.data.fakeItems
@@ -25,8 +27,10 @@ import ie.setu.artisan1.ui.components.record.ItemCardList
 import ie.setu.artisan1.ui.components.record.RecordText
 
 @Composable
-fun ReportScreen(modifier: Modifier = Modifier,
-                 items: SnapshotStateList<ArtisanModel>) {
+fun RecordScreen(modifier: Modifier = Modifier,
+                 recordViewModel: RecordViewModel = hiltViewModel()) {
+
+    val products = recordViewModel.uiProducts.collectAsState().value
 
     Column {
         Column(
@@ -37,30 +41,63 @@ fun ReportScreen(modifier: Modifier = Modifier,
             ),
         ) {
             RecordText()
-            if(items.isEmpty())
-            Centre(Modifier.fillMaxSize()) {
-                Text(color = MaterialTheme.colorScheme.secondary,
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 30.sp,
-                    lineHeight = 34.sp,
-                    textAlign = TextAlign.Center,
-                    text = stringResource(R.string.empty_list)
-                )
-            }
+            if(products.isEmpty())
+                Centre(Modifier.fillMaxSize()) {
+                    Text(color = MaterialTheme.colorScheme.secondary,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 30.sp,
+                        lineHeight = 34.sp,
+                        textAlign = TextAlign.Center,
+                        text = stringResource(R.string.empty_list)
+                    )
+                }
             else
-            ItemCardList(
-                items = items
-            )
+                ItemCardList(
+                    products = products
+                )
         }
     }
 }
 
+
 @Preview(showBackground = true)
 @Composable
-fun ReportScreenPreview() {
+fun RecordScreenPreview() {
     Artisan1Theme {
-        ReportScreen( modifier = Modifier,
-            items = fakeItems.toMutableStateList()
+        PreviewRecordScreen( modifier = Modifier,
+            products = fakeItems.toMutableStateList()
         )
+    }
+}
+
+
+@Composable
+fun PreviewRecordScreen(modifier: Modifier = Modifier,
+                        products: SnapshotStateList<ArtisanModel>) {
+
+    Column {
+        Column(
+            modifier = modifier.padding(
+                top = 48.dp,
+                start = 24.dp,
+                end = 24.dp
+            ),
+        ) {
+            RecordText()
+            if(products.isEmpty())
+                Centre(Modifier.fillMaxSize()) {
+                    Text(color = MaterialTheme.colorScheme.secondary,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 30.sp,
+                        lineHeight = 34.sp,
+                        textAlign = TextAlign.Center,
+                        text = stringResource(R.string.empty_list)
+                    )
+                }
+            else
+                ItemCardList(
+                    products = products
+                )
+        }
     }
 }

@@ -53,7 +53,7 @@ fun ArtisanApp(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController()
 ) {
-    val items = remember { mutableStateListOf<ArtisanModel>() }
+    val products = remember { mutableStateListOf<ArtisanModel>() }
     var selectedMenuItem by remember { mutableStateOf<MenuItem?>(MenuItem.Item) }
     val currentNavBackStackEntry by navController.currentBackStackEntryAsState()
     val currentDestination = currentNavBackStackEntry?.destination
@@ -73,7 +73,7 @@ fun ArtisanApp(
                 modifier = modifier,
                 navController = navController,
                 paddingValues = paddingValues,
-                items = items
+                products = products
             )
         },
         bottomBar = {
