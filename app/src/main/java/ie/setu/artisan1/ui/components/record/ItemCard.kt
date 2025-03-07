@@ -14,6 +14,8 @@ import androidx.compose.material.icons.filled.Cottage
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
+import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.FilledTonalButton
@@ -68,6 +70,7 @@ private fun ItemCardContent(
     onClickDelete: () -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
+    var showDeleteConfirmDialog by remember { mutableStateOf(false) }
 
     Row(
         modifier = Modifier
@@ -109,13 +112,21 @@ private fun ItemCardContent(
             )
             if (expanded) {
                 Text(modifier = Modifier.padding(vertical = 16.dp), text = description)
-                Row(modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween) {
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    horizontalArrangement = Arrangement.SpaceBetween
+                ) {
                     FilledTonalButton(onClick = {}) {
                         Text(text = "Show More...")
                     }
-                    IconButton(onClick = onClickDelete) {
-                        Icon(Icons.Filled.Delete, contentDescription = "Delete Product")
+                    IconButton(onClick = { showDeleteConfirmDialog = true }) {
+                        Icon(Icons.Filled.Delete, contentDescription = "Delete Item")
+                    }
+                    if (showDeleteConfirmDialog) {
+                        showDeleteAlert(
+                            onDismiss = { showDeleteConfirmDialog = false },
+                            onDelete = onClickDelete
+                        )
                     }
                 }
             }
@@ -131,6 +142,31 @@ private fun ItemCardContent(
             )
         }
     }
+}
+
+@Composable
+fun showDeleteAlert(
+    onDismiss: () -> Unit,
+    onDelete: () -> Unit
+) {
+    AlertDialog(
+        onDismissRequest = onDismiss,
+        title = { Text(stringResource(id = R.string.confirm_delete)) },
+        text = { Text(stringResource(id = R.string.confirm_delete_message)) },
+        confirmButton = {
+            Button(onClick = {
+                onDelete()
+                onDismiss()
+            }) {
+                Text("Yes")
+            }
+        },
+        dismissButton = {
+            Button(onClick = onDismiss) {
+                Text("No")
+            }
+        }
+    )
 }
 
 @Preview
