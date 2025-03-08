@@ -15,5 +15,5 @@ This section for the Artisan Shop app provides the full  setup for updating and 
    git clone https://github.com/emily172/MAD2-Artisan.git
 
 ## References
-https://tutors.dev/lab/mobile-app-dev-2-2025/topic-05-architecture/unit-01/book-c-donationx-v3/05
-https://www.freepik.com/free-vector/update-concept-illustration_7741838.htm#fromView=search&page=1&position=0&uuid=4fa1cd47-4883-4b35-89ab-b7d1899d5208&query=update
+https://tutors.dev/lab/mobile-app-dev-2-2025/topic-05-architecture/unit-01/book-c-donationx-v3/06
+https://www.freepik.com/free-vector/update-concept-illustration_209070594.htm#fromView=search&page=1&position=29&uuid=fb0ee9d8-c0b3-4ea3-b87b-073047a32a80&query=update
