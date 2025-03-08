@@ -34,14 +34,16 @@ fun ItemCardList(
     }
 }
 
-@Preview(showBackground = true, wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE)
+@Preview(showBackground = true,
+    wallpaper = Wallpapers.BLUE_DOMINATED_EXAMPLE)
+
 @Composable
 fun ItemCardListPreview() {
     Artisan1Theme {
         ItemCardList(
             fakeItems.toMutableStateList(),
             onDeleteProduct = {},
-            onClickProductDetails = {}
+            onClickProductDetails = {},
         )
     }
 }

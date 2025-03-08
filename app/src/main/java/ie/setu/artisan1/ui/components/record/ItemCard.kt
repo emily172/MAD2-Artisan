@@ -112,8 +112,9 @@ private fun ItemCardContent(
                     )
                 )
             }
-            Text(
-                text = "Items $dateCreated", style = MaterialTheme.typography.labelSmall
+            Text(// Remove "Items" in the text card
+                text = dateCreated,
+                style = MaterialTheme.typography.labelSmall
             )
             if (expanded) {
                 Text(modifier = Modifier.padding(vertical = 16.dp), text = description)
@@ -148,6 +149,7 @@ private fun ItemCardContent(
         }
     }
 }
+
 
 @Composable
 fun showDeleteAlert(
