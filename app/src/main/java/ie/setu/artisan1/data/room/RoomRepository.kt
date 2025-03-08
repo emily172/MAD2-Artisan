@@ -12,13 +12,13 @@ constructor(private val artisanDAO: ArtisanDAO) {
     fun get(id: Int) = artisanDAO.get(id)
 
 
-    suspend fun insert(item: ArtisanModel)
-    { artisanDAO.insert(item) }
+    suspend fun insert(product: ArtisanModel)
+    { artisanDAO.insert(product) }
 
     suspend fun update(product: ArtisanModel)
     { artisanDAO.update(product.id,product.description) }
 
 
-    suspend fun delete(item: ArtisanModel)
-    { artisanDAO.delete(item) }
+    suspend fun delete(product: ArtisanModel)
+    { artisanDAO.delete(product) }
 }

@@ -46,5 +46,5 @@ object Details : AppDestination {
 
 
 
-val bottomAppBarDestinations = listOf(Item, Record,About, Details)
+val bottomAppBarDestinations = listOf(Item, Record,About)
 val allDestinations = listOf(Record, Item, About, Details)
