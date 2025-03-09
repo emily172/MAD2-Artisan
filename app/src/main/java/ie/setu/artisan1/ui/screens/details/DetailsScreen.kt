@@ -3,6 +3,7 @@ package ie.setu.artisan1.ui.screens.details
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Save
@@ -17,11 +18,20 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.foundation.rememberScrollState
 import androidx.hilt.navigation.compose.hiltViewModel
-import ie.setu.artisan1.data.ArtisanModel
-import ie.setu.artisan1.ui.components.details.DetailsScreenText
 import ie.setu.artisan1.ui.components.details.ReadOnlyTextField
 import ie.setu.artisan1.ui.theme.Artisan1Theme
+
+//Adding a title to the Description Details page
+@Composable
+fun DetailsScreenText() {
+    Text(
+        text = "Item Details",
+        style = MaterialTheme.typography.headlineLarge,
+        modifier = Modifier.padding(16.dp)
+    )
+}
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -30,7 +40,7 @@ fun DetailsScreen(
     detailViewModel: DetailsViewModel = hiltViewModel()
 ) {
     var product by detailViewModel.product
-    var text by rememberSaveable { mutableStateOf(product.description) }
+    var description by rememberSaveable { mutableStateOf(product.description) }
     var onMessageChanged by rememberSaveable { mutableStateOf(false) }
     var isEmptyError by rememberSaveable { mutableStateOf(false) }
     var isShortError by rememberSaveable { mutableStateOf(false) }
@@ -41,45 +51,63 @@ fun DetailsScreen(
         onMessageChanged = !(isEmptyError || isShortError)
     }
 
+    //Added in vertical scroll to show all fields to view them all, fixed code layout
     Column(
-        modifier = modifier.padding(
-            start = 24.dp,
-            end = 24.dp,
-        ),
+        modifier = modifier
+            .padding(start = 24.dp, end = 24.dp)
+            .verticalScroll(rememberScrollState()),
         verticalArrangement = Arrangement.spacedBy(10.dp),
     ) {
+        //Set the new fields as Read-Only updated the comments
         DetailsScreenText()
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             modifier = Modifier
                 .fillMaxSize()
-                .padding(
-                    start = 10.dp,
-                    end = 10.dp,
-                ),
+                .padding(start = 10.dp, end = 10.dp),
         ) {
-            // Item Type Field
+            // Read-Only Item Type Field
             ReadOnlyTextField(
                 value = product.itemType,
                 label = "Item Type"
             )
-            // Item Amount Field
+            // Read-Only Item Amount Field
             ReadOnlyTextField(
                 value = "🛍️" + product.itemAmount.toString(),
                 label = "Item Amount"
             )
-            // Date Added Field
+            // Read-Only Date Added Field
             ReadOnlyTextField(
                 value = product.dateAdded.toString(),
                 label = "Date Added"
             )
-            // Message Field
+            // Read-Only Price Field
+            ReadOnlyTextField(
+                value = product.price.toString(),
+                label = "Price"
+            )
+            // Read-Only Category Field
+            ReadOnlyTextField(
+                value = product.category,
+                label = "Category"
+            )
+            // Read-Only Rating Field
+            ReadOnlyTextField(
+                value = product.rating.toString(),
+                label = "Rating"
+            )
+            // Read-Only Availability Field
+            ReadOnlyTextField(
+                value = if (product.availability) "Available" else "Not Available",
+                label = "Availability"
+            )
+            // Editable Description Field
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth(),
-                value = text,
+                value = description,
                 onValueChange = {
-                    text = it
-                    validate(text)
+                    description = it
+                    validate(description)
                 },
                 maxLines = 2,
                 label = { Text(text = "Message") },
@@ -108,19 +136,22 @@ fun DetailsScreen(
                             tint = Color.Black
                         )
                 },
-                keyboardActions = KeyboardActions { validate(text) },
+                //Updated text as description
+                keyboardActions = KeyboardActions { validate(description) },
                 colors = OutlinedTextFieldDefaults.colors(
                     unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
                 )
             )
-            Spacer(modifier = Modifier.height(48.dp))
+
+            Spacer(modifier = Modifier.height(24.dp)) // Added space before the button
             Button(
                 onClick = {
-                    detailViewModel.updateProduct(product.copy(description = text))
+                    detailViewModel.updateProduct(product.copy(description = description))
                     onMessageChanged = false
                 },
                 elevation = ButtonDefaults.buttonElevation(20.dp),
-                enabled = onMessageChanged
+                enabled = onMessageChanged,
+                modifier = Modifier.padding(bottom = 48.dp) // Added padding below the button
             ) {
                 Icon(Icons.Default.Save, contentDescription = "Save")
                 Spacer(modifier = Modifier.width(8.dp))
@@ -134,141 +165,11 @@ fun DetailsScreen(
         }
     }
 }
-
 
 @Preview(showBackground = true)
 @Composable
 fun DetailScreenPreview() {
     Artisan1Theme {
-        PreviewDetailScreen(modifier = Modifier)
-    }
-}
-
-@Composable
-fun PreviewDetailScreen(modifier: Modifier) {
-
-    val product = ArtisanModel()
-    val errorEmptyMessage = "Message Cannot be Empty..."
-    val errorShortMessage = "Message must be at least 2 characters"
-    var text by rememberSaveable { mutableStateOf("") }
-    var onMessageChanged by rememberSaveable { mutableStateOf(false) }
-    var isEmptyError by rememberSaveable { mutableStateOf(false) }
-    var isShortError by rememberSaveable { mutableStateOf(false) }
-
-    fun validate(text: String) {
-        isEmptyError = text.isEmpty()
-        isShortError = text.length < 2
-        onMessageChanged = true
-    }
-
-    Column(
-        modifier = modifier.padding(
-            start = 10.dp,
-            end = 10.dp,
-        ),
-        verticalArrangement = Arrangement.spacedBy(10.dp),
-    ) {
-        DetailsScreenText()
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(
-                    start = 10.dp,
-                    end = 10.dp,
-                ),
-        ) {
-            //Item Type Field
-            OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = product.itemType,
-                onValueChange = { },
-                label = { Text(text = "Item Type") },
-                readOnly = true,
-                colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
-                )
-            )
-            //Item Amount Field
-            OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = "🛍️" + product.itemAmount.toString(),
-                onValueChange = { },
-                label = { Text(text = "Item Amount") },
-                readOnly = true,
-                colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
-                )
-            )
-            OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = product.dateAdded.toString(),
-                onValueChange = { },
-                label = { Text(text = "Date Added") },
-                readOnly = true,
-                colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
-                )
-            )
-
-            // Message Field
-            text = product.description
-            OutlinedTextField(
-                modifier = Modifier.fillMaxWidth(),
-                value = text,
-                onValueChange = {
-                    text = it
-                    text = product.description
-                },
-                maxLines = 2,
-                label = { Text(text = "Message") },
-                isError = isEmptyError || isShortError,
-                supportingText = {
-                    if (isEmptyError) {
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = errorEmptyMessage,
-                            color = MaterialTheme.colorScheme.error
-                        )
-                    } else if (isShortError) {
-                        Text(
-                            modifier = Modifier.fillMaxWidth(),
-                            text = errorShortMessage,
-                            color = MaterialTheme.colorScheme.error
-                        )
-                    }
-                },
-                trailingIcon = {
-                    if (isEmptyError || isShortError)
-                        Icon(Icons.Filled.Warning, "error", tint = MaterialTheme.colorScheme.error)
-                    else
-                        Icon(
-                            Icons.Default.Edit, contentDescription = "add/edit",
-                            tint = Color.Black
-                        )
-                },
-                keyboardActions = KeyboardActions { validate(text) },
-                colors = OutlinedTextFieldDefaults.colors(
-                    unfocusedBorderColor = MaterialTheme.colorScheme.secondary,
-                )
-            )
-            Spacer(modifier = Modifier.height(48.dp))
-            Button(
-                onClick = {
-                    onMessageChanged = false
-                },
-                elevation = ButtonDefaults.buttonElevation(20.dp),
-                enabled = onMessageChanged
-            ) {
-                Icon(Icons.Default.Save, contentDescription = "Save")
-                Spacer(modifier = Modifier.width(8.dp))
-                Text(
-                    text = "Save",
-                    fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp,
-                    color = Color.White
-                )
-            }
-        }
+        DetailsScreen()
     }
 }
