@@ -27,6 +27,11 @@ fun ItemCardList(
                 itemAmount = product.itemAmount,
                 description = product.description,
                 dateCreated = DateFormat.getDateTimeInstance().format(product.dateAdded),
+                //New Categories
+                price = product.price,
+                category = product.category,
+                rating = product.rating,
+                availability = product.availability,
                 onClickDelete = { onDeleteProduct(product) },
                 onClickProductDetails = { onClickProductDetails(product.id) }
             )
@@ -43,7 +48,7 @@ fun ItemCardListPreview() {
         ItemCardList(
             fakeItems.toMutableStateList(),
             onDeleteProduct = {},
-            onClickProductDetails = {},
+            onClickProductDetails = {}
         )
     }
 }

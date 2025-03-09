@@ -3,31 +3,14 @@ package ie.setu.artisan1.ui.components.record
 import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Cottage
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
-import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -45,6 +28,10 @@ fun ItemCard(
     itemAmount: Int,
     description: String,
     dateCreated: String,
+    price: Double,
+    category: String,
+    rating: Float,
+    availability: Boolean,
     onClickDelete: () -> Unit,
     onClickProductDetails: () -> Unit
 ) {
@@ -59,6 +46,10 @@ fun ItemCard(
             itemAmount = itemAmount,
             description = description,
             dateCreated = dateCreated,
+            price = price,
+            category = category,
+            rating = rating,
+            availability = availability,
             onClickDelete = onClickDelete,
             onClickProductDetails = onClickProductDetails
         )
@@ -71,6 +62,10 @@ private fun ItemCardContent(
     itemAmount: Int,
     description: String,
     dateCreated: String,
+    price: Double,
+    category: String,
+    rating: Float,
+    availability: Boolean,
     onClickDelete: () -> Unit,
     onClickProductDetails: () -> Unit
 ) {
@@ -112,12 +107,17 @@ private fun ItemCardContent(
                     )
                 )
             }
-            Text(// Remove "Items" in the text card
+            Text(
                 text = dateCreated,
                 style = MaterialTheme.typography.labelSmall
             )
+            //Updated to handle composable functions displaying additional information item expanded to view
             if (expanded) {
                 Text(modifier = Modifier.padding(vertical = 16.dp), text = description)
+                Text(text = "Price: $price", style = MaterialTheme.typography.bodySmall)
+                Text(text = "Category: $category", style = MaterialTheme.typography.bodySmall)
+                Text(text = "Rating: $rating", style = MaterialTheme.typography.bodySmall)
+                Text(text = "Available: ${if (availability) "Yes" else "No"}", style = MaterialTheme.typography.bodySmall)
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
@@ -149,7 +149,6 @@ private fun ItemCardContent(
         }
     }
 }
-
 
 @Composable
 fun showDeleteAlert(
@@ -185,6 +184,10 @@ fun ItemCardPreview() {
             itemAmount = 20,
             description = "A description of my issue...",
             dateCreated = DateFormat.getDateTimeInstance().format(Date()),
+            price = 10.0,
+            category = "Food",
+            rating = 4.5f,
+            availability = true,
             onClickDelete = {},
             onClickProductDetails = {}
         )
