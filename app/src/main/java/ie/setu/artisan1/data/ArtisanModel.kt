@@ -12,7 +12,11 @@ data class ArtisanModel(
     val itemType: String = "N/A",
     val itemAmount: Int = 0,
     val description: String = "Item Description",
-    val dateAdded: Date = Date()
+    val dateAdded: Date = Date(),
+    val price: Double = 0.0,
+    val category: String = "N/A",
+    val rating: Float = 0.0f,
+    val availability: Boolean = true
 )
 
 val fakeItems = List(30) { i ->
