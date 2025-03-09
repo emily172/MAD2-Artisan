@@ -27,6 +27,6 @@ fun ReadOnlyTextField(value: String, label: String) {
 @Composable
 fun ReadOnlyTextFieldPreview() {
     Artisan1Theme {
-        ReadOnlyTextField("My Message","My Title")
+        ReadOnlyTextField("Description","Item")
     }
 }
