@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import ie.setu.artisan1.ui.theme.Artisan1Theme
 import ie.setu.artisan1.R
+import androidx.compose.material3.MaterialTheme
 
 @Composable
 fun RecordText(modifier: Modifier = Modifier) {
@@ -22,12 +23,14 @@ fun RecordText(modifier: Modifier = Modifier) {
             top = 24.dp,
             bottom = 24.dp
         ),
-        verticalArrangement = Arrangement.spacedBy(24.dp)) {
+        verticalArrangement = Arrangement.spacedBy(24.dp)
+    ) {
         Text(
             text = stringResource(R.string.recordTitle),
             fontWeight = FontWeight.Bold,
             fontSize = 28.sp,
-            color = Color.Black
+            // Updated colour for applying dark mode
+            color = MaterialTheme.colorScheme.onBackground
         )
     }
 }
