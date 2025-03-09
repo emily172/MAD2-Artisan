@@ -72,9 +72,7 @@ either in dark or light mode.
    
 
 ## Youtube link
-
-```sh
-   https://www.youtube.com/watch?v=3wsJ6U_oWhw
+https://www.youtube.com/watch?v=3wsJ6U_oWhw
 
 
 ## State References - Date Accessed Feb 20 and 28 2025 & Mar 2 2025
