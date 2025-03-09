@@ -8,19 +8,19 @@ These new features are displayed across various screens,
 including the Details Screen, Record Screen, Items Card, List, and Item Screen, 
 enhancing the overall functionality and user experience.
 
-The app contains new new fields such as price, category, rating, and
+The app contains new fields such as price, category, rating, and
 availability to add value to each product.
 It includes a search feature to help users filter and find specific items.
 Users can view detailed information about each product and edit descriptions as needed.
 
 The app also features a delete function with a confirmation alert and setup for updating and 
 editing items, ensuring efficient management of products and explanation for each one.
-Additionally, the app adapts accordingly to color scheme to maintain a visually appealing interface 
+Additionally, the app adapts accordingly a colour scheme to maintain a visually appealing interface 
 either in dark or light mode.
 
 
 ## State Features
-- **Item Type**: Updates with a different items are selected from the radio group button options.
+- **Item Type**: Updates with different items are selected from the radio group button options.
 - **Item Amount**: Adjusts the amount of items permitted by amount.
 - **Item Picker**: Selects the amount of inventory amount in 10s once reached 100 limit exceeded.
 - **Item Description**: Write a message about the product for example strawberry candle.
