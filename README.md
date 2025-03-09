@@ -5,8 +5,8 @@
 This section for the Artisan Shop app is updating the colour scheme.
 
 ## Features
--**Colours**: Updating the primary,secondary and tertiary scheme for applying to light and dark mode.
--**Themes**: Setting those changes with the application.
+- **Colours**: Updating the primary,secondary and tertiary scheme for applying to light and dark mode.
+- **Themes**: Setting those changes with the application.
 
 ## Installation
 
