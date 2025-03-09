@@ -18,7 +18,6 @@ These new features are displayed in the Details Screen,Record Screen, Items Card
 
 
 ### Features
-- **Item Card Screen**: total items + inventory = sumOf function on each item added.
 - **Price**: Added a price for a product.
 - **Category**: Give the product a category.
 - **Rating**: Add a rating to the product.
