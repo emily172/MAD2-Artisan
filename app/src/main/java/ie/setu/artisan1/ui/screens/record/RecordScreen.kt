@@ -3,10 +3,10 @@ package ie.setu.artisan1.ui.screens.record
 import ie.setu.artisan1.ui.theme.Artisan1Theme
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.runtime.toMutableStateList
@@ -31,7 +31,13 @@ fun RecordScreen(
     onClickProductDetails: (Int) -> Unit,
     recordViewModel: RecordViewModel = hiltViewModel()
 ) {
-    val products = recordViewModel.uiProducts.collectAsState().value
+    //Setting up search for each product item on the list to filter
+    var searchQuery by remember { mutableStateOf("") }
+    val products = recordViewModel.uiProducts.collectAsState().value.filter {
+        it.itemType.contains(searchQuery, ignoreCase = true) ||
+                it.description.contains(searchQuery, ignoreCase = true) ||
+                it.category.contains(searchQuery, ignoreCase = true)
+    }
 
     Column {
         Column(
@@ -41,7 +47,17 @@ fun RecordScreen(
                 end = 24.dp
             ),
         ) {
+
             RecordText()
+            //Display the item that is filtered by search outcome
+            TextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                label = { Text("Search") },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+            )
             if (products.isEmpty())
                 Centre(Modifier.fillMaxSize()) {
                     Text(
