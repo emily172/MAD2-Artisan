@@ -30,7 +30,7 @@
     <string name="inventory">Inventory</string>
     <string name="description">Add an item description</string>
     <string name="limit">"An artisan product will be limited to 200 items"</string>
-    <string name="recordTitle">Goods List</string>
+    <string name="recordTitle">Product List</string>
     <string name="defaultAmount">00</string>
     <string name="defaultMethod">N/A</string>
     <string name="defaultMessage">Be Creative</string>
