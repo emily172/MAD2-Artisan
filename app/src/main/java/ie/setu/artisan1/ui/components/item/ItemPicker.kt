@@ -1,6 +1,5 @@
 package ie.setu.artisan1.ui.components.item
 
-
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -14,7 +13,6 @@ import androidx.compose.ui.unit.sp
 import com.chargemap.compose.numberpicker.ListItemPicker
 import ie.setu.artisan1.ui.theme.Artisan1Theme
 
-
 @Composable
 fun AmountPicker(
     onCategoryChange: (Int) -> Unit
@@ -25,7 +23,11 @@ fun AmountPicker(
     ListItemPicker(
         label = { it },
         dividersColor = MaterialTheme.colorScheme.primary,
-        textStyle = TextStyle(Color.Black,20.sp),
+        // Updated colour for applying dark mode
+        textStyle = TextStyle(
+            color = MaterialTheme.colorScheme.onBackground,
+            fontSize = 20.sp
+        ),
         value = pickerValue,
         onValueChange = {
             pickerValue = it
