@@ -24,10 +24,6 @@ roomRuntime = "2.6.1"
 ksp = "2.0.20-1.0.25"
 storage = "1.5.0"
 
-#V4 - setting up retrofit
-converterGson = "2.11.0"
-gson = "2.11.0"
-retrofit = "2.11.0"
 
 
 
