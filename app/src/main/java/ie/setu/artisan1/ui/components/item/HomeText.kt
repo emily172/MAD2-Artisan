@@ -11,6 +11,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import ie.setu.artisan1.ui.theme.Artisan1Theme
 import ie.setu.artisan1.R
 
@@ -24,10 +25,10 @@ fun HomeText(modifier: Modifier = Modifier) {
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ) {
         Text(
-            text = stringResource(R.string.Artisan),
-            fontWeight = FontWeight.Thin,
-            fontSize = MaterialTheme.typography.headlineMedium.fontSize, // Dynamic scaling - adjusts for text scaling
-            color = MaterialTheme.colorScheme.onSurface // Theme-aware color - adjusts for light or dark theme
+            text = "Welcome to Artisan Shop!",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.headlineMedium
         )
         Text(
             text = stringResource(R.string.artisanSubtitle),
