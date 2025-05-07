@@ -13,7 +13,6 @@ import androidx.compose.material.icons.filled.Cottage
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
-import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material.icons.filled.Eco
 import androidx.compose.material.icons.filled.Brush
 import androidx.compose.material.icons.filled.BubbleChart
@@ -30,12 +29,10 @@ import androidx.compose.material.icons.filled.Diamond
 import androidx.compose.material.icons.filled.DonutSmall
 import androidx.compose.material.icons.filled.Draw
 import androidx.compose.material.icons.filled.EmojiFoodBeverage
-import androidx.compose.material.icons.filled.EnergySavingsLeaf
 import androidx.compose.material.icons.filled.FaceRetouchingNatural
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.FilterVintage
 import androidx.compose.material.icons.filled.FormatColorFill
-import androidx.compose.material.icons.filled.Grass
 import androidx.compose.material.icons.filled.GridGoldenratio
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.LightMode
@@ -66,7 +63,6 @@ import androidx.compose.material.icons.filled.Wash
 import androidx.compose.material.icons.filled.Watch
 import androidx.compose.material.icons.filled.WaterDrop
 import androidx.compose.material.icons.filled.Waves
-import androidx.compose.material.icons.filled.Yard
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
