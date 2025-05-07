@@ -257,6 +257,8 @@ private fun ItemCardContent(
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showDeleteConfirmDialog by remember { mutableStateOf(false) }
+    val priceColor = MaterialTheme.colorScheme.secondary
+    val categoryColor = MaterialTheme.colorScheme.tertiary
 
     Row(
         modifier = Modifier
@@ -298,6 +300,21 @@ private fun ItemCardContent(
                 text = dateCreated,
                 style = MaterialTheme.typography.labelSmall
             )
+
+
+
+            Text(
+                text = "Price: €$price",
+                style = MaterialTheme.typography.bodyMedium,
+                color = priceColor // Highlighted price for better visibility
+            )
+
+            Text(
+                text = "Category: $category",
+                style = MaterialTheme.typography.bodyMedium,
+                color = categoryColor //  Highlighted category for better visibility
+            )
+
 
             // Updated expandable content with smoother animations
             Column(modifier = Modifier.animateContentSize()) {
