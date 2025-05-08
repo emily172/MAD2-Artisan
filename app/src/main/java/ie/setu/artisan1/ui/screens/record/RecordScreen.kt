@@ -1,15 +1,11 @@
 package ie.setu.artisan1.ui.screens.record
 
 import ie.setu.artisan1.ui.theme.Artisan1Theme
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.snapshots.SnapshotStateList
-import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -21,8 +17,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import ie.setu.artisan1.R
 import ie.setu.artisan1.data.ArtisanModel
 import ie.setu.artisan1.data.fakeItems
-import ie.setu.artisan1.ui.components.general.Centre
+import ie.setu.artisan1.ui.components.record.SortFilterDropdown
 import ie.setu.artisan1.ui.components.record.ItemCardList
+import ie.setu.artisan1.ui.components.general.Centre
 import ie.setu.artisan1.ui.components.record.RecordText
 
 @Composable
@@ -31,55 +28,72 @@ fun RecordScreen(
     onClickProductDetails: (Int) -> Unit,
     recordViewModel: RecordViewModel = hiltViewModel()
 ) {
-    //Setting up search for each product item on the list to filter
     var searchQuery by remember { mutableStateOf("") }
-    val products = recordViewModel.uiProducts.collectAsState().value.filter {
-        it.itemType.contains(searchQuery, ignoreCase = true) ||
-                it.description.contains(searchQuery, ignoreCase = true) ||
-                it.category.contains(searchQuery, ignoreCase = true)
+    val selectedSortOption by recordViewModel.selectedSortOption.collectAsState()
+    val selectedCategory by recordViewModel.selectedCategory.collectAsState()
+
+    // Apply filtering and sorting dynamically
+    val filteredProducts = recordViewModel.uiProducts.collectAsState().value.filter {
+        (selectedCategory == null || it.category == selectedCategory) &&
+                (searchQuery.isEmpty() || it.itemType.contains(searchQuery, ignoreCase = true) ||
+                        it.description.contains(searchQuery, ignoreCase = true) ||
+                        it.category.contains(searchQuery, ignoreCase = true))
+    }
+
+    val sortedFilteredProducts = remember(filteredProducts, selectedSortOption) {
+        when (selectedSortOption) {
+            "Price Low to High" -> filteredProducts.sortedBy { it.price }
+            "Price High to Low" -> filteredProducts.sortedByDescending { it.price }
+            "Rating" -> filteredProducts.sortedByDescending { it.rating }
+            "Newest" -> filteredProducts.sortedByDescending { it.dateAdded }
+            "Oldest" -> filteredProducts.sortedBy { it.dateAdded }
+            else -> filteredProducts
+        }
     }
 
     Column {
-        Column(
-            modifier = modifier.padding(
-                top = 48.dp,
-                start = 24.dp,
-                end = 24.dp
-            ),
-        ) {
-
+        Column(modifier = modifier.padding(top = 48.dp, start = 24.dp, end = 24.dp)) {
             RecordText()
-            //Display the item that is filtered by search outcome
+
+            // Sorting & Filtering Dropdown
+            SortFilterDropdown(
+                selectedSortOption = selectedSortOption,
+                onSortOptionSelected = { recordViewModel.setSortOption(it) },
+                selectedCategory = selectedCategory,
+                onCategorySelected = { recordViewModel.setCategoryFilter(it) }
+            )
+
+            // Search Bar
             TextField(
                 value = searchQuery,
                 onValueChange = { searchQuery = it },
                 label = { Text("Search") },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp)
+                modifier = Modifier.fillMaxWidth().padding(16.dp)
             )
-            if (products.isEmpty())
+
+            if (sortedFilteredProducts.isEmpty()) {
                 Centre(Modifier.fillMaxSize()) {
                     Text(
+                        text = "No items found",
                         color = MaterialTheme.colorScheme.secondary,
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp,
-                        lineHeight = 34.sp,
-                        textAlign = TextAlign.Center,
-                        text = stringResource(R.string.empty_list)
+                        textAlign = TextAlign.Center
                     )
                 }
-            else
+            } else {
                 ItemCardList(
-                    products = products,
+                    products = sortedFilteredProducts,
                     onClickProductDetails = onClickProductDetails,
                     onDeleteProduct = { product: ArtisanModel ->
                         recordViewModel.deleteProduct(product)
                     }
                 )
+            }
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
