@@ -1,6 +1,6 @@
 # Artisan Shop - Icons and Improved Colours
 
-![img_10.png](img_10.png)![image](https://github.com/user-attachments/assets/9f67f937-ebd3-4ec3-ab01-85fec10f10b6)
+![img_10.png](img_10.png)
 
 
 This section for the Artisan Shop app has improved card size, colours, fields, text and icons for each product card.
