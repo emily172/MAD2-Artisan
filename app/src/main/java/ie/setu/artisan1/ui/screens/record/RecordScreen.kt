@@ -75,10 +75,8 @@ fun RecordScreen(
 
             // **Category Tags Displayed with Colors**
             Row(
-                modifier = Modifier
-                    .padding(horizontal = 12.dp, vertical = 10.dp) // 🔹 Increased padding around tag row
-                    .fillMaxWidth(), // 🔹 Ensure tags fit within screen width
-                horizontalArrangement = Arrangement.spacedBy(12.dp) // 🔹 Adds spacing between tags
+                modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp).fillMaxWidth(),
+                horizontalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 selectedCategories.forEach { category ->
                     CategoryTag(

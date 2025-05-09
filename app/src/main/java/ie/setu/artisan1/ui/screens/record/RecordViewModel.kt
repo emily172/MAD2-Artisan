@@ -59,10 +59,17 @@ class RecordViewModel @Inject constructor(
             }
         }
     }
+    /*
     private fun sortAndFilterProducts(items: List<ArtisanModel>): List<ArtisanModel> {
         val filteredProducts = items.filter { item ->
             (_selectedCategories.value.isEmpty() || _selectedCategories.value.contains(item.category))
+        }*/
+    private fun sortAndFilterProducts(items: List<ArtisanModel>): List<ArtisanModel> {
+        val filteredProducts = items.filter { item ->
+            (_selectedCategories.value.isEmpty() || _selectedCategories.value.contains(item.category)) &&
+                    (item.price in _priceRange.value)
         }
+
 
         return when (_selectedSortOption.value) {
             "Price Low to High" -> filteredProducts.sortedBy { it.price }

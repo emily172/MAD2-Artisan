@@ -6,16 +6,13 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowDropDownCircle
-
-import androidx.compose.animation.core.animateFloatAsState
-
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInVertically
 import androidx.compose.animation.slideOutVertically
 import androidx.compose.material.icons.filled.ArrowCircleDown
+import androidx.compose.ui.unit.sp
 
 @Composable
 fun SortFilterDropdown(
@@ -27,10 +24,10 @@ fun SortFilterDropdown(
     var expandedSort by remember { mutableStateOf(false) }
     var expandedCategory by remember { mutableStateOf(false) }
 
-    Column(modifier = Modifier.padding(16.dp)) {
+    Column(modifier = Modifier.padding(8.dp)) {
         // Sorting Dropdown
         Box {
-            Button(onClick = { expandedSort = !expandedSort }) {
+            Button(onClick = { expandedSort = !expandedSort },modifier = Modifier.height(36.dp)) {
                 Text(text = selectedSortOption)  // Adding in the text parameter
                 Icon(imageVector = Icons.Filled.ArrowCircleDown, contentDescription = "Sort Options")
             }
@@ -49,7 +46,7 @@ fun SortFilterDropdown(
                         exit = slideOutVertically(targetOffsetY = { it * index })
                     ) {
                         DropdownMenuItem(
-                            text = { Text(option) },  // Adding in the text parameter
+                            text = { Text(option, fontSize = 12.sp) },  // Adding in the text parameter
                             onClick = { onSortOptionSelected(option); expandedSort = false }
                         )
                     }
@@ -57,7 +54,7 @@ fun SortFilterDropdown(
             }
         }
 
-        Spacer(modifier = Modifier.height(8.dp))
+        Spacer(modifier = Modifier.height(4.dp))
 
         // Category Filtering Dropdown
         Box {
@@ -80,7 +77,7 @@ fun SortFilterDropdown(
                         exit = slideOutVertically(targetOffsetY = { it * index })
                     ) {
                         DropdownMenuItem(
-                            text = { Text(option) },
+                            text = { Text(option, fontSize = 12.sp) },
                             onClick = { onCategoryToggled(option) }
                         )
                     }
