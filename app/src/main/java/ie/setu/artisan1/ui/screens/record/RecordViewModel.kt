@@ -22,6 +22,9 @@ class RecordViewModel @Inject constructor(
     private val _selectedCategories = MutableStateFlow<Set<String>>(emptySet())
     val selectedCategories: StateFlow<Set<String>> = _selectedCategories.asStateFlow()
 
+    private val _priceRange = MutableStateFlow(0f..100f)
+    val priceRange: StateFlow<ClosedFloatingPointRange<Float>> = _priceRange.asStateFlow()
+
     init {
         viewModelScope.launch {
             repository.getAll().collect { listOfProducts ->
@@ -44,6 +47,11 @@ class RecordViewModel @Inject constructor(
         updateProductList()
     }
 
+    fun setPriceRange(range: ClosedFloatingPointRange<Float>) {
+        _priceRange.value = range
+        updateProductList()
+    }
+
     private fun updateProductList() {
         viewModelScope.launch {
             repository.getAll().collect { listOfProducts ->
@@ -51,7 +59,6 @@ class RecordViewModel @Inject constructor(
             }
         }
     }
-
     private fun sortAndFilterProducts(items: List<ArtisanModel>): List<ArtisanModel> {
         val filteredProducts = items.filter { item ->
             (_selectedCategories.value.isEmpty() || _selectedCategories.value.contains(item.category))

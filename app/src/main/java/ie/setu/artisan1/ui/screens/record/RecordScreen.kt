@@ -21,6 +21,7 @@ import ie.setu.artisan1.ui.components.record.SortFilterDropdown
 import ie.setu.artisan1.ui.components.record.ItemCardList
 import ie.setu.artisan1.ui.components.general.Centre
 import ie.setu.artisan1.ui.components.record.CategoryTag
+import ie.setu.artisan1.ui.components.record.PriceRangeSlider
 import ie.setu.artisan1.ui.components.record.RecordText
 
 @Composable
@@ -32,12 +33,14 @@ fun RecordScreen(
     var searchQuery by remember { mutableStateOf("") }
     val selectedSortOption by recordViewModel.selectedSortOption.collectAsState()
     val selectedCategories by recordViewModel.selectedCategories.collectAsState()
+    val priceRange by recordViewModel.priceRange.collectAsState()
 
     val filteredProducts = recordViewModel.uiProducts.collectAsState().value.filter {
         (selectedCategories.isEmpty() || selectedCategories.contains(it.category)) &&
                 (searchQuery.isEmpty() || it.itemType.contains(searchQuery, ignoreCase = true) ||
                         it.description.contains(searchQuery, ignoreCase = true) ||
-                        it.category.contains(searchQuery, ignoreCase = true))
+                        it.category.contains(searchQuery, ignoreCase = true)) &&
+                (it.price in priceRange)
     }
 
     val sortedFilteredProducts = remember(filteredProducts, selectedSortOption) {
@@ -62,6 +65,13 @@ fun RecordScreen(
                 selectedCategories = selectedCategories,
                 onCategoryToggled = { recordViewModel.toggleCategorySelection(it) }
             )
+
+            // Price Range Slider
+            PriceRangeSlider(
+                priceRange = priceRange,
+                onPriceRangeChanged = { recordViewModel.setPriceRange(it) }
+            )
+
 
             // **Category Tags Displayed with Colors**
             Row(
@@ -100,9 +110,7 @@ fun RecordScreen(
                 ItemCardList(
                     products = sortedFilteredProducts,
                     onClickProductDetails = onClickProductDetails,
-                    onDeleteProduct = { product: ArtisanModel ->
-                        recordViewModel.deleteProduct(product)
-                    }
+                    onDeleteProduct = { recordViewModel.deleteProduct(it) }
                 )
             }
         }
