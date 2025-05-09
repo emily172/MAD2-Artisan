@@ -12,6 +12,7 @@ import ie.setu.artisan1.data.ArtisanModel
 import ie.setu.artisan1.ui.screens.item.ItemScreen
 import ie.setu.artisan1.ui.screens.record.RecordScreen
 import ie.setu.artisan1.ui.screens.about.AboutScreen
+import ie.setu.artisan1.ui.screens.auth.LoginScreen
 import ie.setu.artisan1.ui.screens.details.DetailsScreen
 
 @Composable
@@ -23,15 +24,15 @@ fun NavHostProvider(
 ) {
     NavHost(
         navController = navController,
-        startDestination = Record.route,
+        startDestination = "login_screen", // ✅ Set LoginScreen as the first screen
         modifier = modifier.padding(paddingValues = paddingValues)
     ) {
-        composable(route = Item.route) {
-            // Call our 'Item' Screen Here
-            ItemScreen(modifier = modifier)
+        composable(route = "login_screen") {
+            LoginScreen(navController = navController, onLoginSuccess = { navController.navigate("record_screen") })
         }
+
+
         composable(route = Record.route) {
-            //call our 'Record' Screen Here
             RecordScreen(
                 modifier = modifier,
                 onClickProductDetails = { productId: Int ->
@@ -40,24 +41,24 @@ fun NavHostProvider(
             )
         }
 
+        composable(route = Item.route) {
+            ItemScreen(modifier = modifier)
+        }
+
         composable(route = About.route) {
-            //call our 'About' Screen Here
             AboutScreen(modifier = modifier)
         }
 
         composable(
             route = Details.route,
             arguments = Details.arguments
-        )
-        { navBackStackEntry ->
+        ) { navBackStackEntry ->
             val id = navBackStackEntry.arguments?.getInt(Details.idArg)
             if (id != null) {
                 DetailsScreen()
             }
         }
-
     }
-
 }
 
 private fun NavHostController.navigateToProductDetails(artisanId: Int) {

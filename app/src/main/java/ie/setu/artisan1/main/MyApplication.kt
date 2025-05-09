@@ -2,15 +2,10 @@ package ie.setu.artisan1.main
 
 import android.app.Application
 import com.google.firebase.FirebaseApp
-import dagger.hilt.android.HiltAndroidApp
-import timber.log.Timber
 
-@HiltAndroidApp
-class ArtisanMainApp : Application() {
+class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         FirebaseApp.initializeApp(this) // ✅ Initializes Firebase
-        Timber.plant(Timber.DebugTree())
-        Timber.i("Starting Artisan Application")
     }
 }
