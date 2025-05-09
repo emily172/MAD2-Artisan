@@ -20,6 +20,7 @@ import ie.setu.artisan1.data.fakeItems
 import ie.setu.artisan1.ui.components.record.SortFilterDropdown
 import ie.setu.artisan1.ui.components.record.ItemCardList
 import ie.setu.artisan1.ui.components.general.Centre
+import ie.setu.artisan1.ui.components.record.CategoryTag
 import ie.setu.artisan1.ui.components.record.RecordText
 
 @Composable
@@ -30,11 +31,10 @@ fun RecordScreen(
 ) {
     var searchQuery by remember { mutableStateOf("") }
     val selectedSortOption by recordViewModel.selectedSortOption.collectAsState()
-    val selectedCategory by recordViewModel.selectedCategory.collectAsState()
+    val selectedCategories by recordViewModel.selectedCategories.collectAsState()
 
-    // Apply filtering and sorting dynamically
     val filteredProducts = recordViewModel.uiProducts.collectAsState().value.filter {
-        (selectedCategory == null || it.category == selectedCategory) &&
+        (selectedCategories.isEmpty() || selectedCategories.contains(it.category)) &&
                 (searchQuery.isEmpty() || it.itemType.contains(searchQuery, ignoreCase = true) ||
                         it.description.contains(searchQuery, ignoreCase = true) ||
                         it.category.contains(searchQuery, ignoreCase = true))
@@ -59,9 +59,24 @@ fun RecordScreen(
             SortFilterDropdown(
                 selectedSortOption = selectedSortOption,
                 onSortOptionSelected = { recordViewModel.setSortOption(it) },
-                selectedCategory = selectedCategory,
-                onCategorySelected = { recordViewModel.setCategoryFilter(it) }
+                selectedCategories = selectedCategories,
+                onCategoryToggled = { recordViewModel.toggleCategorySelection(it) }
             )
+
+            // **Category Tags Displayed with Colors**
+            Row(
+                modifier = Modifier
+                    .padding(horizontal = 12.dp, vertical = 10.dp) // 🔹 Increased padding around tag row
+                    .fillMaxWidth(), // 🔹 Ensure tags fit within screen width
+                horizontalArrangement = Arrangement.spacedBy(12.dp) // 🔹 Adds spacing between tags
+            ) {
+                selectedCategories.forEach { category ->
+                    CategoryTag(
+                        category = category,
+                        onRemove = { recordViewModel.toggleCategorySelection(category) }
+                    )
+                }
+            }
 
             // Search Bar
             TextField(

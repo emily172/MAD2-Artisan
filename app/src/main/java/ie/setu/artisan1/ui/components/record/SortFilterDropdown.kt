@@ -6,53 +6,89 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowCircleDown
+import androidx.compose.material.icons.filled.ArrowDropDownCircle
 
+import androidx.compose.animation.core.animateFloatAsState
+
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
+import androidx.compose.material.icons.filled.ArrowCircleDown
 
 @Composable
 fun SortFilterDropdown(
     selectedSortOption: String,
     onSortOptionSelected: (String) -> Unit,
-    selectedCategory: String?,
-    onCategorySelected: (String?) -> Unit
+    selectedCategories: Set<String>,
+    onCategoryToggled: (String) -> Unit
 ) {
     var expandedSort by remember { mutableStateOf(false) }
     var expandedCategory by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier.padding(16.dp)) {
+        // Sorting Dropdown
         Box {
             Button(onClick = { expandedSort = !expandedSort }) {
-                Text(text = selectedSortOption)
+                Text(text = selectedSortOption)  // Adding in the text parameter
                 Icon(imageVector = Icons.Filled.ArrowCircleDown, contentDescription = "Sort Options")
             }
+
             DropdownMenu(expanded = expandedSort, onDismissRequest = { expandedSort = false }) {
-                listOf("Price Low to High", "Price High to Low", "Rating", "Newest", "Oldest").forEach { option ->
-                    DropdownMenuItem(
-                        text = { Text(option) }, // Adding in the text parameter
-                        onClick = { onSortOptionSelected(option); expandedSort = false }
-                    )
+                listOf("Price Low to High", "Price High to Low", "Rating", "Newest", "Oldest").forEachIndexed { index, option ->
+                    AnimatedVisibility(
+                        visible = expandedSort,
+                        enter = slideInVertically(
+                            initialOffsetY = { it * index },
+                            animationSpec = spring(
+                                dampingRatio = Spring.DampingRatioMediumBouncy, // 🔹 Creates bounce effect
+                                stiffness = Spring.StiffnessLow // 🔹 Smooth movement
+                            )
+                        ),
+                        exit = slideOutVertically(targetOffsetY = { it * index })
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text(option) },  // Adding in the text parameter
+                            onClick = { onSortOptionSelected(option); expandedSort = false }
+                        )
+                    }
                 }
             }
         }
 
         Spacer(modifier = Modifier.height(8.dp))
 
+        // Category Filtering Dropdown
         Box {
             Button(onClick = { expandedCategory = !expandedCategory }) {
-                Text(text = selectedCategory ?: "All Categories")
+                Text(text = if (selectedCategories.isEmpty()) "All Categories" else selectedCategories.joinToString(", "))
                 Icon(imageVector = Icons.Filled.ArrowCircleDown, contentDescription = "Category Options")
             }
-            //Going to update this with the new categories created from the item card for better filtering
+
             DropdownMenu(expanded = expandedCategory, onDismissRequest = { expandedCategory = false }) {
-                listOf("Soap", "Candle", "Jam","Pottery","Weaving","Painting","Jewellery","N/A", "Textile", "All").forEach { option ->
-                    DropdownMenuItem(
-                        text = { Text(option) }, // Adding in the text parameter
-                        onClick = { onCategorySelected(if (option == "All") null else option); expandedCategory = false }
-                    )
+                listOf("Soap", "Candle", "Jam","Pottery","Weaving","Painting","Jewellery","N/A", "Textile", "All").forEachIndexed { index, option ->
+                    AnimatedVisibility(
+                        visible = expandedCategory,
+                        enter = slideInVertically(
+                            initialOffsetY = { it * index },
+                            animationSpec = spring(
+                                dampingRatio = Spring.DampingRatioMediumBouncy,
+                                stiffness = Spring.StiffnessLow
+                            )
+                        ),
+                        exit = slideOutVertically(targetOffsetY = { it * index })
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text(option) },
+                            onClick = { onCategoryToggled(option) }
+                        )
+                    }
                 }
             }
         }
     }
 }
+
 
 

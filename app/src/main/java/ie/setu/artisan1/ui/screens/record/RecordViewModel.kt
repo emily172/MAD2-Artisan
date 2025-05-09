@@ -19,8 +19,8 @@ class RecordViewModel @Inject constructor(
     private val _selectedSortOption = MutableStateFlow("Newest")
     val selectedSortOption: StateFlow<String> = _selectedSortOption.asStateFlow()
 
-    private val _selectedCategory = MutableStateFlow<String?>(null)
-    val selectedCategory: StateFlow<String?> = _selectedCategory.asStateFlow()
+    private val _selectedCategories = MutableStateFlow<Set<String>>(emptySet())
+    val selectedCategories: StateFlow<Set<String>> = _selectedCategories.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -35,8 +35,12 @@ class RecordViewModel @Inject constructor(
         updateProductList()
     }
 
-    fun setCategoryFilter(category: String?) {
-        _selectedCategory.value = category
+    fun toggleCategorySelection(category: String) {
+        _selectedCategories.value = if (_selectedCategories.value.contains(category)) {
+            _selectedCategories.value - category
+        } else {
+            _selectedCategories.value + category
+        }
         updateProductList()
     }
 
@@ -50,7 +54,7 @@ class RecordViewModel @Inject constructor(
 
     private fun sortAndFilterProducts(items: List<ArtisanModel>): List<ArtisanModel> {
         val filteredProducts = items.filter { item ->
-            (_selectedCategory.value == null || item.category == _selectedCategory.value)
+            (_selectedCategories.value.isEmpty() || _selectedCategories.value.contains(item.category))
         }
 
         return when (_selectedSortOption.value) {
