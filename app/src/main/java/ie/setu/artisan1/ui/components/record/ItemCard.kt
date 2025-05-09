@@ -215,17 +215,16 @@ fun ItemCard(
     rating: Float,
     availability: Boolean,
     onClickDelete: () -> Unit,
-    onClickProductDetails: () -> Unit
+    onClickProductDetails: () -> Unit,
+    modifier: Modifier = Modifier // Added the modifier parameter
 ) {
     Card(
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.primary
-        ),
-        modifier = Modifier
+        modifier = modifier // Applying the modifier action here
             .fillMaxWidth()
             .padding(8.dp),
-        shape = RoundedCornerShape(12.dp), // Rounded corners for a modern look
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp) // Enhancing depth
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary),
+        shape = RoundedCornerShape(12.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp)
     ) {
         ItemCardContent(
             itemType = itemType,
@@ -237,10 +236,12 @@ fun ItemCard(
             rating = rating,
             availability = availability,
             onClickDelete = onClickDelete,
-            onClickProductDetails = onClickProductDetails
+            onClickProductDetails = onClickProductDetails,
+            modifier = modifier // 🔹 Pass the modifier down to ItemCardContent
         )
     }
 }
+
 
 @Composable
 private fun ItemCardContent(
@@ -253,7 +254,8 @@ private fun ItemCardContent(
     rating: Float,
     availability: Boolean,
     onClickDelete: () -> Unit,
-    onClickProductDetails: () -> Unit
+    onClickProductDetails: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     var expanded by remember { mutableStateOf(false) }
     var showDeleteConfirmDialog by remember { mutableStateOf(false) }

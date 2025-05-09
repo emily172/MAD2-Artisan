@@ -14,6 +14,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import android.hardware.Sensor
+import android.hardware.SensorEvent
+import android.hardware.SensorEventListener
+import android.hardware.SensorManager
+import android.content.Context
+import android.os.Build
+import androidx.compose.ui.platform.LocalContext
 import ie.setu.artisan1.R
 import ie.setu.artisan1.data.ArtisanModel
 import ie.setu.artisan1.data.fakeItems
@@ -54,6 +61,10 @@ fun RecordScreen(
         }
     }
 
+    ShakeDetector(onShake = {
+        recordViewModel.undoSwipeAction()
+    }) // 🔹 Detect device shake
+
     Column {
         Column(modifier = modifier.padding(top = 48.dp, start = 24.dp, end = 24.dp)) {
             RecordText()
@@ -65,14 +76,11 @@ fun RecordScreen(
                 selectedCategories = selectedCategories,
                 onCategoryToggled = { recordViewModel.toggleCategorySelection(it) }
             )
-
             // Price Range Slider
             PriceRangeSlider(
                 priceRange = priceRange,
                 onPriceRangeChanged = { recordViewModel.setPriceRange(it) }
             )
-
-
             // **Category Tags Displayed with Colors**
             Row(
                 modifier = Modifier.padding(horizontal = 12.dp, vertical = 10.dp).fillMaxWidth(),
@@ -85,7 +93,6 @@ fun RecordScreen(
                     )
                 }
             }
-
             // Search Bar
             TextField(
                 value = searchQuery,
@@ -108,10 +115,55 @@ fun RecordScreen(
                 ItemCardList(
                     products = sortedFilteredProducts,
                     onClickProductDetails = onClickProductDetails,
-                    onDeleteProduct = { recordViewModel.deleteProduct(it) }
+                    onDeleteProduct = { recordViewModel.deleteProduct(it) },
+                    onEditProduct = { product -> /* Navigate to edit screen or show edit dialog */ }
                 )
             }
         }
+    }
+}
+
+@Composable
+fun ShakeDetector(onShake: () -> Unit) {
+    val context = LocalContext.current
+    val sensorManager = context.getSystemService(Context.SENSOR_SERVICE) as SensorManager
+    val accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER)
+
+    var lastShakeTime by remember { mutableStateOf(0L) }
+
+    // 🔹 Dynamically adjust shake sensitivity based on the device
+    val deviceSensitivity = if (Build.MODEL.contains("Pixel") || Build.MANUFACTURER.contains("Samsung")) {
+        10 // 🔹 More sensitive for high-end devices
+    } else {
+        12 // 🔹 Standard sensitivity for most devices
+    }
+
+    DisposableEffect(Unit) {
+        val listener = object : SensorEventListener {
+            override fun onSensorChanged(event: SensorEvent?) {
+                event?.let {
+                    val acceleration = Math.sqrt(
+                        (event.values[0] * event.values[0] +
+                                event.values[1] * event.values[1] +
+                                event.values[2] * event.values[2]).toDouble()
+                    )
+
+                    if (acceleration > deviceSensitivity) { // 🔹 Adaptive shake detection
+                        val currentTime = System.currentTimeMillis()
+                        if (currentTime - lastShakeTime > 1500) { // 🔹 Prevent multiple triggers
+                            lastShakeTime = currentTime
+                            onShake() // 🔹 Call undo function
+                        }
+                    }
+                }
+            }
+
+            override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {}
+        }
+
+        sensorManager.registerListener(listener, accelerometer, SensorManager.SENSOR_DELAY_UI)
+
+        onDispose { sensorManager.unregisterListener(listener) }
     }
 }
 
@@ -156,7 +208,8 @@ fun PreviewRecordScreen(
                 ItemCardList(
                     products = products,
                     onDeleteProduct = {},
-                    onClickProductDetails = {}
+                    onClickProductDetails = {},
+                    onEditProduct = {}
                 )
         }
     }

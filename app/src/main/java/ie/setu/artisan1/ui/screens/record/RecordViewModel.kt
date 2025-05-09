@@ -1,5 +1,7 @@
 package ie.setu.artisan1.ui.screens.record
 
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -24,6 +26,9 @@ class RecordViewModel @Inject constructor(
 
     private val _priceRange = MutableStateFlow(0f..100f)
     val priceRange: StateFlow<ClosedFloatingPointRange<Float>> = _priceRange.asStateFlow()
+
+    private val _fontSize = MutableStateFlow(16.sp) // 🔹 Default font size
+    val fontSize: StateFlow<TextUnit> = _fontSize.asStateFlow()
 
     init {
         viewModelScope.launch {
@@ -59,17 +64,12 @@ class RecordViewModel @Inject constructor(
             }
         }
     }
-    /*
-    private fun sortAndFilterProducts(items: List<ArtisanModel>): List<ArtisanModel> {
-        val filteredProducts = items.filter { item ->
-            (_selectedCategories.value.isEmpty() || _selectedCategories.value.contains(item.category))
-        }*/
+
     private fun sortAndFilterProducts(items: List<ArtisanModel>): List<ArtisanModel> {
         val filteredProducts = items.filter { item ->
             (_selectedCategories.value.isEmpty() || _selectedCategories.value.contains(item.category)) &&
                     (item.price in _priceRange.value)
         }
-
 
         return when (_selectedSortOption.value) {
             "Price Low to High" -> filteredProducts.sortedBy { it.price }
@@ -81,10 +81,51 @@ class RecordViewModel @Inject constructor(
         }
     }
 
+    private var lastDeletedProduct: ArtisanModel? = null
+
     fun deleteProduct(product: ArtisanModel) {
         viewModelScope.launch {
+            lastDeletedProduct = product // 🔹 Store last deleted item
             repository.delete(product)
-            updateProductList() // Ensure UI updates after deletion
+            updateProductList()
         }
     }
+
+    fun updateProduct(updatedProduct: ArtisanModel) {
+        viewModelScope.launch {
+            repository.update(updatedProduct) // 🔹 Update item in database
+
+            _products.update { list ->
+                list.map { if (it.id == updatedProduct.id) updatedProduct else it } // 🔹 Apply changes to UI
+            }
+        }
+    }
+
+
+
+    fun undoSwipeAction() {
+        viewModelScope.launch {
+            lastDeletedProduct?.let {
+                repository.insert(it) // 🔹 Restore deleted item
+                lastDeletedProduct = null
+                updateProductList()
+            }
+        }
+    }
+
+    fun setFontSize(size: Float) { // 🔹 Now correctly placed!
+        _fontSize.value = size.sp // 🔹 Update font size dynamically
+    }
 }
+
+
+/*    fun undoSwipeAction() {
+        viewModelScope.launch {
+            lastDeletedProduct?.let {
+                repository.insert(it) // 🔹 Restore deleted item
+                lastDeletedProduct = null
+
+                _products.value = repository.getAll().first() // 🔹 Force UI refresh
+            }
+        }
+    }*/
