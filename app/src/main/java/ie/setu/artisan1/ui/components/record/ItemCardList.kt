@@ -24,7 +24,6 @@ fun ItemCardList(
     products: List<ArtisanModel>,
     onDeleteProduct: (ArtisanModel) -> Unit,
     onClickProductDetails: (Int) -> Unit,
-    onEditProduct: (ArtisanModel) -> Unit
 ) {
     LazyColumn {
         items(
@@ -59,7 +58,6 @@ fun ItemCardList(
                         detectHorizontalDragGestures { _, dragAmount ->
                             swipeOffset += dragAmount
                             if (swipeOffset > 150f) {
-                                onEditProduct(product) // 🔹 Swipe right to edit
                                 swipeOffset = 0f // 🔹 Reset after action
                             } else if (swipeOffset < -150f) {
                                 onDeleteProduct(product) // 🔹 Swipe left to delete
@@ -81,7 +79,6 @@ fun ItemCardListPreview() {
             fakeItems.toMutableStateList(),
             onDeleteProduct = {},
             onClickProductDetails = {},
-            onEditProduct = {} // 🔹 Preview edit action
         )
     }
 }

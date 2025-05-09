@@ -91,17 +91,6 @@ class RecordViewModel @Inject constructor(
         }
     }
 
-    fun updateProduct(updatedProduct: ArtisanModel) {
-        viewModelScope.launch {
-            repository.update(updatedProduct) // 🔹 Update item in database
-
-            _products.update { list ->
-                list.map { if (it.id == updatedProduct.id) updatedProduct else it } // 🔹 Apply changes to UI
-            }
-        }
-    }
-
-
 
     fun undoSwipeAction() {
         viewModelScope.launch {

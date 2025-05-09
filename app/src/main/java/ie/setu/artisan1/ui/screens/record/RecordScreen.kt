@@ -116,7 +116,6 @@ fun RecordScreen(
                     products = sortedFilteredProducts,
                     onClickProductDetails = onClickProductDetails,
                     onDeleteProduct = { recordViewModel.deleteProduct(it) },
-                    onEditProduct = { product -> /* Navigate to edit screen or show edit dialog */ }
                 )
             }
         }
@@ -209,7 +208,6 @@ fun PreviewRecordScreen(
                     products = products,
                     onDeleteProduct = {},
                     onClickProductDetails = {},
-                    onEditProduct = {}
                 )
         }
     }
