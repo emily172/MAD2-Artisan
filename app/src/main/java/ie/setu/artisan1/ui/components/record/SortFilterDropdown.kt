@@ -64,7 +64,7 @@ fun SortFilterDropdown(
             }
 
             DropdownMenu(expanded = expandedCategory, onDismissRequest = { expandedCategory = false }) {
-                listOf("Soap", "Candle", "Jam","Pottery","Weaving","Painting","Jewellery","N/A", "Textile", "All").forEachIndexed { index, option ->
+                listOf("All","Soap", "Candle", "Jam","Pottery","Weaving","Painting","Textile","Jewellery","Bubbly","Vegan", "N/A",  ).forEachIndexed { index, option ->
                     AnimatedVisibility(
                         visible = expandedCategory,
                         enter = slideInVertically(

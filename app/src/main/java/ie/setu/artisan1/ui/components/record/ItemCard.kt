@@ -198,7 +198,7 @@ fun getCategoryIcon(category: String) = when (category) {
     //Other Category
     "Home" -> Icons.Filled.Home
     "Scent" -> Icons.Filled.FilterVintage
-    "Embroidery" -> Icons.Filled.FilterVintage
+    "Sew" -> Icons.Filled.FilterVintage
     "Knit" -> Icons.Filled.StarOutline
     "Crochet" -> Icons.Filled.StarOutline
     else -> Icons.Filled.Cottage
