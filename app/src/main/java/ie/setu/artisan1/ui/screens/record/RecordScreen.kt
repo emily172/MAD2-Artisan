@@ -30,12 +30,14 @@ import ie.setu.artisan1.ui.components.general.Centre
 import ie.setu.artisan1.ui.components.record.CategoryTag
 import ie.setu.artisan1.ui.components.record.PriceRangeSlider
 import ie.setu.artisan1.ui.components.record.RecordText
+import ie.setu.artisan1.ui.viewmodel.DarkModeViewModel
 
 @Composable
 fun RecordScreen(
     modifier: Modifier = Modifier,
     onClickProductDetails: (Int) -> Unit,
-    recordViewModel: RecordViewModel = hiltViewModel()
+    recordViewModel: RecordViewModel = hiltViewModel(),
+    darkModeViewModel: DarkModeViewModel = hiltViewModel() // ✅ Use DarkModeViewModel
 ) {
     var searchQuery by remember { mutableStateOf("") }
     val selectedSortOption by recordViewModel.selectedSortOption.collectAsState()
@@ -61,13 +63,23 @@ fun RecordScreen(
         }
     }
 
+
+    val isDarkMode by darkModeViewModel.isDarkMode.collectAsState() // ✅ Observe theme state
+    // ✅ Apply Theme Dynamically
+    Artisan1Theme(darkTheme = isDarkMode) {
+        Column(modifier = modifier.padding(top = 48.dp, start = 24.dp, end = 24.dp)) {
+            RecordText()
+
+            // 🔹 Toggle Button for Dark Mode
+            Button(onClick = { darkModeViewModel.toggleDarkMode() }) {
+                Text(if (isDarkMode) "Switch to Light Mode" else "Switch to Dark Mode")
+            }
+
     ShakeDetector(onShake = {
         recordViewModel.undoSwipeAction()
     }) // 🔹 Detect device shake
 
-    Column {
-        Column(modifier = modifier.padding(top = 48.dp, start = 24.dp, end = 24.dp)) {
-            RecordText()
+
 
             // Sorting & Filtering Dropdown
             SortFilterDropdown(
