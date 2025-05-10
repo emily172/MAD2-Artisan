@@ -69,8 +69,8 @@ Workflow diagram for Artisan Application
 
 ## Delete & Update Features
 - **Delete**: Remove an item with confirmation screen.
--**Message Field**: Updating a message or description in the card list.
--**Alert Warning**: A field needs to be filled in for the card to be saved.
+- **Message Field**: Updating a message or description in the card list.
+- **Alert Warning**: A field needs to be filled in for the card to be saved.
 
 
 ## Customization  Features
