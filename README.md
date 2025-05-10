@@ -22,10 +22,9 @@ Clone the repository and add your own FB Auth Key and install google-services
    git clone https://github.com/emily172/MAD2-Artisan.git
 ```
 
+# Artisan Shop App
 ![img_21.png](img_21.png)
 
-
-# Artisan Shop App
 The Artisan App is designed for homemakers to add and manage various categories of items,
 such as soaps, candles, and jams, through an easy-to-use interface.
 These features are displayed across various screens, including the Details Screen, Record Screen, Items Card, List, and Item Screen, enhancing the overall functionality and user experience.
@@ -39,7 +38,7 @@ New features of the application include a sorting and filtering feature for each
 
 The app also features a delete swipe action function by swiping left on the card and an undo function by simply shaking the device.  Additionally, the app adapts accordingly to colour scheme to maintain a visually appealing interface either in dark or light mode as well as a new toggle button between light or dark changing the colour on the record screen adapting to theme, colour, app and device adjustments editing items, ensuring efficient management of products and explanation for each one. Additional functionalities and features are included in the about section with a pulsing welcome message, expandable cards contain FAQs, journey, search bar, key features and plain card with about us and contact information. The launcher app is updated with an artisan shop logo upon launcher and when items have exceeded their amount.
 
-UML & Class Diagrams
+# UML & Class Diagrams
 Workflow diagram for Artisan Application
 
 ![img_22.png](img_22.png)
