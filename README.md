@@ -1,4 +1,4 @@
-# Artisan App - Technical Report - README.md
+# Artisan App - Technical Report - README.md - MAD Assignment two - Full Release Branch.
 
 ![img_18.png](img_18.png)
 
@@ -24,6 +24,8 @@ Clone the repository and add your own FB Auth Key and install google-services
 
 ![img_21.png](img_21.png)
 
+
+# Artisan Shop App
 The Artisan App is designed for homemakers to add and manage various categories of items,
 such as soaps, candles, and jams, through an easy-to-use interface.
 These features are displayed across various screens, including the Details Screen, Record Screen, Items Card, List, and Item Screen, enhancing the overall functionality and user experience.
@@ -44,7 +46,6 @@ Workflow diagram for Artisan Application
 
 
 # Main Features
-## State Features
 ## State Features
 - **Item Type**: Updates with a different items are selected from the radio group button options.
 - **Item Amount**: Adjusts the amount of items permitted by amount.
